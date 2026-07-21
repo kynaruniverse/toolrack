@@ -23,5 +23,5 @@ export interface Rack {
   slug: string;
   name: string;
   description: string;
-  tools: Tool[];
+  tools: Tool<any>[];
 }

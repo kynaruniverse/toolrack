@@ -23,19 +23,18 @@ product strategy.
 - `app/construction/<tool-slug>/page.tsx` — one thin page per tool that
   wires the tool + its field config into `CalculatorCard`.
 
-## Local setup (Termux)
+## Workflow
 
-```bash
-npm install
-npm run dev
-```
+Edit files in SPCK Editor, commit and push to GitHub. There's no local dev
+server in this workflow — Vercel builds and serves the app on push, so you
+preview changes on the live deploy rather than `localhost`.
 
-Opens on `http://localhost:3000`.
+## Deploy (Vercel)
 
-## Deploy
-
-Push to GitHub, then import the repo in Vercel — it auto-detects Next.js,
-no config needed. Every push to `main` redeploys.
+1. Push this repo to GitHub.
+2. Import it in Vercel — it auto-detects Next.js, no config needed.
+3. Every push to `main` redeploys automatically; other branches get their
+   own preview URL, useful for trying changes before merging to `main`.
 
 ## Adding a new construction tool
 
