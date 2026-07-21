@@ -48,3 +48,5 @@ preview changes on the live deploy rather than `localhost`.
 
 No accounts, no Projects, no invoices/CRM/scheduling — see concept doc
 §10 (Competitive Positioning) for the guardrail on what not to build yet.
+
+
