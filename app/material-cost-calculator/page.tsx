@@ -1,4 +1,5 @@
 import MaterialCostCalculator from "@/components/calculators/MaterialCostCalculator";
+import ToolHeader from "@/components/ToolHeader";
 
 export const metadata = {
   title: "Material Cost Calculator — ToolRack",
@@ -8,14 +9,14 @@ export const metadata = {
 
 export default function MaterialCostCalculatorPage() {
   return (
-    <main className="min-h-screen px-6 py-10">
-      <div className="max-w-md mx-auto mb-8 text-center">
-        <h1 className="text-2xl font-bold">Material Cost Calculator</h1>
-        <p className="text-neutral-600 mt-1">
-          Add your materials, labour, and margin to get a quick job total.
-        </p>
+    <main className="min-h-screen bg-concrete">
+      <ToolHeader
+        title="Material Cost Calculator"
+        subtitle="Add your materials, labour, and margin to get a quick job total."
+      />
+      <div className="px-6 -mt-4 pb-14">
+        <MaterialCostCalculator />
       </div>
-      <MaterialCostCalculator />
     </main>
   );
 }

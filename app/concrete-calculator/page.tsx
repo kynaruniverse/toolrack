@@ -1,4 +1,5 @@
 import ConcreteCalculator from "@/components/calculators/ConcreteCalculator";
+import ToolHeader from "@/components/ToolHeader";
 
 export const metadata = {
   title: "Concrete Calculator — ToolRack",
@@ -8,14 +9,14 @@ export const metadata = {
 
 export default function ConcreteCalculatorPage() {
   return (
-    <main className="min-h-screen px-6 py-10">
-      <div className="max-w-md mx-auto mb-8 text-center">
-        <h1 className="text-2xl font-bold">Concrete Calculator</h1>
-        <p className="text-neutral-600 mt-1">
-          Enter your slab dimensions to get cubic metres, bags, and cost.
-        </p>
+    <main className="min-h-screen bg-concrete">
+      <ToolHeader
+        title="Concrete Calculator"
+        subtitle="Enter your slab dimensions to get cubic metres, bags, and cost."
+      />
+      <div className="px-6 -mt-4 pb-14">
+        <ConcreteCalculator />
       </div>
-      <ConcreteCalculator />
     </main>
   );
 }

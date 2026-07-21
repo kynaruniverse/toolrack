@@ -34,15 +34,17 @@ export default function ConcreteCalculator() {
   const lengthUnit = unit === "metric" ? "m" : "ft";
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      {/* Unit toggle */}
-      <div className="flex mb-6 rounded-lg bg-neutral-200 p-1">
+    <div className="w-full max-w-md mx-auto rounded-xl bg-white border border-concrete-dark shadow-sm p-5">
+      {/* Rocker unit toggle */}
+      <div className="rocker flex mb-6 rounded-lg p-1">
         {(["metric", "imperial"] as Unit[]).map((u) => (
           <button
             key={u}
             onClick={() => setUnit(u)}
-            className={`flex-1 py-2 rounded-md text-sm font-medium transition ${
-              unit === u ? "bg-white shadow text-neutral-900" : "text-neutral-500"
+            className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
+              unit === u
+                ? "bg-graphite text-white shadow"
+                : "text-neutral-500"
             }`}
           >
             {u === "metric" ? "Metric (m)" : "Imperial (ft)"}
@@ -57,8 +59,8 @@ export default function ConcreteCalculator() {
         <Field label="Depth (mm)" value={depth} onChange={setDepth} />
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1">
-            Waste allowance: {wastePercent}%
+          <label className="block text-sm font-semibold text-graphite mb-1">
+            Waste allowance: <span className="text-steel">{wastePercent}%</span>
           </label>
           <input
             type="range"
@@ -66,12 +68,12 @@ export default function ConcreteCalculator() {
             max={25}
             value={wastePercent}
             onChange={(e) => setWastePercent(Number(e.target.value))}
-            className="w-full"
+            className="w-full accent-safety"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1">
+          <label className="block text-sm font-semibold text-graphite mb-1">
             Bag size
           </label>
           <div className="flex gap-2">
@@ -79,10 +81,10 @@ export default function ConcreteCalculator() {
               <button
                 key={size}
                 onClick={() => setBagSizeKg(size as 20 | 25)}
-                className={`flex-1 py-2 rounded-lg border text-sm font-medium ${
+                className={`flex-1 py-2 rounded-lg border-2 text-sm font-semibold transition ${
                   bagSizeKg === size
-                    ? "border-neutral-900 bg-neutral-900 text-white"
-                    : "border-neutral-300 text-neutral-700"
+                    ? "border-safety-dark bg-safety text-graphite"
+                    : "border-concrete-dark text-neutral-600"
                 }`}
               >
                 {size}kg
@@ -98,20 +100,29 @@ export default function ConcreteCalculator() {
         />
       </div>
 
-      {/* Result */}
+      {/* Digital readout */}
       {result && (
-        <div className="mt-6 rounded-xl bg-neutral-900 text-white p-5">
-          <p className="text-sm text-neutral-300 mb-1">You'll need approximately</p>
-          <p className="text-2xl font-bold mb-3">
-            {result.volumeWithWasteM3.toFixed(2)} m³ of concrete
+        <div className="readout-panel mt-6 rounded-lg p-5">
+          <p className="text-[11px] uppercase tracking-widest text-neutral-400 mb-1">
+            You'll need approximately
           </p>
-          <p className="text-sm text-neutral-300 mb-1">
-            That's about <span className="text-white font-semibold">{result.bagsRequired} bags</span> ({bagSizeKg}kg each), including a {wastePercent}% allowance for uneven ground.
+          <p className="readout-digits text-3xl font-semibold mb-3">
+            {result.volumeWithWasteM3.toFixed(2)} m³
+          </p>
+          <p className="text-sm text-neutral-300 leading-relaxed">
+            That's about{" "}
+            <span className="readout-digits font-semibold">
+              {result.bagsRequired} bags
+            </span>{" "}
+            ({bagSizeKg}kg each), including a {wastePercent}% allowance for
+            uneven ground.
           </p>
           {result.estimatedCost !== null && (
-            <p className="text-sm text-neutral-300 mt-2">
+            <p className="text-sm text-neutral-300 mt-3 pt-3 border-t border-gunmetal">
               Estimated material cost:{" "}
-              <span className="text-white font-semibold">£{result.estimatedCost.toFixed(2)}</span>
+              <span className="readout-digits font-semibold">
+                £{result.estimatedCost.toFixed(2)}
+              </span>
             </p>
           )}
         </div>
@@ -131,14 +142,14 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-neutral-700 mb-1">{label}</label>
+      <label className="block text-sm font-semibold text-graphite mb-1">{label}</label>
       <input
         type="number"
         inputMode="decimal"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="0"
-        className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-neutral-900"
+        className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel"
       />
     </div>
   );

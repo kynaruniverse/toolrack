@@ -1,3 +1,62 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  /* Pegboard hole pattern — used behind the hero and the tool rack grid */
+  .pegboard {
+    background-color: #1C1F22;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.09) 1.5px, transparent 1.5px);
+    background-size: 18px 18px;
+  }
+
+  /* A tool "hanging" on the rack: card body + a punched hook-hole at the top edge,
+     rendered as a notch cut from the card into the page background colour. */
+  .hook-card {
+    position: relative;
+  }
+  .hook-card::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    background: #EDEDE9;
+    border: 1px solid #DFDEDA;
+    border-radius: 9999px;
+    z-index: 10;
+  }
+
+  /* Digital tool readout: the LCD/laser-measure display used for calculator results */
+  .readout-panel {
+    background: #14171A;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    border: 1px solid #33383D;
+  }
+  .readout-digits {
+    font-family: var(--font-plex-mono), monospace;
+    color: #FFB100;
+    text-shadow: 0 0 12px rgba(255, 177, 0, 0.35);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Rocker-style unit toggle, styled after a physical switch rather than a segmented tab */
+  .rocker {
+    background: #DFDEDA;
+    border: 1px solid #C9C7C1;
+  }
+}
