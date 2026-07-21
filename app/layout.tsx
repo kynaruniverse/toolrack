@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ToolRack — The digital toolbox for skilled trades",
-  description:
-    "Fast, reliable calculators for builders. No sign-up, no fuss — get your answer and get back to the job.",
+  title: "ToolRack — The Digital Toolbox for Skilled Trades",
+  description: "Fast, reliable calculators for tradespeople. Calculate concrete, bricks, and material costs on-site, on your phone.",
 };
 
 export default function RootLayout({
@@ -14,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-body min-h-screen antialiased">{children}</body>
+      <body className="bg-neutral-50 text-neutral-900 antialiased">
+        {children}
+      </body>
     </html>
   );
 }
