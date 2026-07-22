@@ -50,7 +50,7 @@ export default function ConcreteCalculator() {
             key={u}
             onClick={() => setUnit(u)}
             className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
-              unit === u ? "bg-graphite text-white shadow" : "text-neutral-500"
+              unit === u ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
           >
             {u === "metric" ? "Metric (m)" : "Imperial (ft)"}
@@ -65,7 +65,7 @@ export default function ConcreteCalculator() {
             key={m}
             onClick={() => setMethod(m)}
             className={`flex-1 py-2 rounded-md text-xs font-semibold uppercase tracking-wide transition ${
-              method === m ? "bg-graphite text-white shadow" : "text-neutral-500"
+              method === m ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
           >
             {m === "premix" ? "Pre-mix bags" : "Mix my own"}

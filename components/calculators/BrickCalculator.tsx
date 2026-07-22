@@ -59,7 +59,7 @@ export default function BrickCalculator() {
             key={u}
             onClick={() => setUnit(u)}
             className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
-              unit === u ? "bg-graphite text-white shadow" : "text-neutral-500"
+              unit === u ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
           >
             {u === "metric" ? "Metric (m)" : "Imperial (ft)"}
@@ -73,7 +73,7 @@ export default function BrickCalculator() {
             key={t}
             onClick={() => selectUnitType(t)}
             className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
-              unitType === t ? "bg-graphite text-white shadow" : "text-neutral-500"
+              unitType === t ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
           >
             {UNIT_PRESETS[t].label}
