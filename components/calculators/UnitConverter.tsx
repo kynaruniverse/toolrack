@@ -28,11 +28,13 @@ export default function UnitConverter() {
 
   return (
     <div className="w-full max-w-md mx-auto rounded-xl bg-white border border-concrete-dark shadow-sm p-5">
-      <div className="grid grid-cols-4 gap-2 mb-6">
+      <div className="grid grid-cols-4 gap-2 mb-6" role="radiogroup" aria-label="Conversion category">
         {CATEGORIES.map((c) => (
           <button
             key={c.key}
             onClick={() => selectCategory(c.key)}
+            role="radio"
+            aria-checked={category === c.key}
             className={`py-2 rounded-lg border-2 text-xs font-semibold uppercase tracking-wide transition ${
               category === c.key
                 ? "border-safety-dark bg-safety text-graphite"
@@ -46,10 +48,12 @@ export default function UnitConverter() {
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-semibold text-graphite mb-1">Value</label>
+          <label htmlFor="converter-value" className="block text-sm font-semibold text-graphite mb-1">Value</label>
           <input
+            id="converter-value"
             type="number"
             inputMode="decimal"
+            min="0"
             value={value}
             onChange={(e) => setValue(e.target.value)}
             className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel"
@@ -57,8 +61,9 @@ export default function UnitConverter() {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-graphite mb-1">From</label>
+          <label htmlFor="converter-from" className="block text-sm font-semibold text-graphite mb-1">From</label>
           <select
+            id="converter-from"
             value={fromKey}
             onChange={(e) => setFromKey(e.target.value)}
             className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel bg-white"
@@ -72,8 +77,9 @@ export default function UnitConverter() {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-graphite mb-1">To</label>
+          <label htmlFor="converter-to" className="block text-sm font-semibold text-graphite mb-1">To</label>
           <select
+            id="converter-to"
             value={toKey}
             onChange={(e) => setToKey(e.target.value)}
             className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel bg-white"

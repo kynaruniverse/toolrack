@@ -64,6 +64,7 @@ export default function MaterialCostCalculator() {
               {items.length > 1 && (
                 <button
                   onClick={() => removeItem(item.id)}
+                  aria-label={`Remove material ${idx + 1}`}
                   className="text-xs font-semibold uppercase tracking-wide text-steel"
                 >
                   Remove
@@ -75,23 +76,28 @@ export default function MaterialCostCalculator() {
               value={item.name}
               onChange={(e) => updateItem(item.id, "name", e.target.value)}
               placeholder="e.g. Timber"
+              aria-label={`Material ${idx + 1} name`}
               className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base mb-2 focus:outline-none focus:border-steel"
             />
             <div className="flex gap-2">
               <input
                 type="number"
                 inputMode="decimal"
+                min="0"
                 value={item.quantity || ""}
                 onChange={(e) => updateItem(item.id, "quantity", e.target.value)}
                 placeholder="Quantity"
+                aria-label={`Material ${idx + 1} quantity`}
                 className="w-1/2 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel"
               />
               <input
                 type="number"
                 inputMode="decimal"
+                min="0"
                 value={item.unitPrice || ""}
                 onChange={(e) => updateItem(item.id, "unitPrice", e.target.value)}
                 placeholder="Unit price £"
+                aria-label={`Material ${idx + 1} unit price`}
                 className="w-1/2 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel"
               />
             </div>
@@ -106,20 +112,22 @@ export default function MaterialCostCalculator() {
       </div>
 
       <div className="flex gap-2 mb-4">
-        <Field label="Labour hours" value={labourHours} onChange={setLabourHours} />
-        <Field label="Labour rate (£/hr)" value={labourRate} onChange={setLabourRate} />
+        <Field id="material-labour-hours" label="Labour hours" value={labourHours} onChange={setLabourHours} />
+        <Field id="material-labour-rate" label="Labour rate (£/hr)" value={labourRate} onChange={setLabourRate} />
       </div>
 
       <div className="mb-4">
-        <label className="block text-sm font-semibold text-graphite mb-1">
+        <label htmlFor="material-margin" className="block text-sm font-semibold text-graphite mb-1">
           Margin: <span className="text-steel">{marginPercent}%</span>
         </label>
         <input
+          id="material-margin"
           type="range"
           min={0}
           max={50}
           value={marginPercent}
           onChange={(e) => setMarginPercent(Number(e.target.value))}
+          aria-valuetext={`${marginPercent}%`}
           className="w-full accent-safety"
         />
       </div>
@@ -154,20 +162,24 @@ function Row({ label, value }: { label: string; value: number }) {
 }
 
 function Field({
+  id,
   label,
   value,
   onChange,
 }: {
+  id: string;
   label: string;
   value: string;
   onChange: (v: string) => void;
 }) {
   return (
     <div className="w-1/2">
-      <label className="block text-sm font-semibold text-graphite mb-1">{label}</label>
+      <label htmlFor={id} className="block text-sm font-semibold text-graphite mb-1">{label}</label>
       <input
+        id={id}
         type="number"
         inputMode="decimal"
+        min="0"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="0"

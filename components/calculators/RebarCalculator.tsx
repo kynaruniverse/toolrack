@@ -21,14 +21,16 @@ export default function RebarCalculator() {
   return (
     <div className="w-full max-w-md mx-auto rounded-xl bg-white border border-concrete-dark shadow-sm p-5">
       <div className="mb-4">
-        <label className="block text-sm font-semibold text-graphite mb-2">
+        <label id="rebar-diameter-label" className="block text-sm font-semibold text-graphite mb-2">
           Bar diameter (mm)
         </label>
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-4 gap-2" role="radiogroup" aria-labelledby="rebar-diameter-label">
           {STANDARD_DIAMETERS.map((d) => (
             <button
               key={d}
               onClick={() => setDiameterMm(d)}
+              role="radio"
+              aria-checked={diameterMm === d}
               className={`py-2 rounded-lg border-2 text-sm font-semibold transition ${
                 diameterMm === d
                   ? "border-safety-dark bg-safety text-graphite"
@@ -42,8 +44,8 @@ export default function RebarCalculator() {
       </div>
 
       <div className="space-y-4">
-        <Field label="Length per bar (m)" value={barLengthM} onChange={setBarLengthM} />
-        <Field label="Number of bars" value={numberOfBars} onChange={setNumberOfBars} />
+        <Field id="rebar-bar-length" label="Length per bar (m)" value={barLengthM} onChange={setBarLengthM} />
+        <Field id="rebar-number-of-bars" label="Number of bars" value={numberOfBars} onChange={setNumberOfBars} />
       </div>
 
       {result && (
@@ -76,20 +78,24 @@ export default function RebarCalculator() {
 }
 
 function Field({
+  id,
   label,
   value,
   onChange,
 }: {
+  id: string;
   label: string;
   value: string;
   onChange: (v: string) => void;
 }) {
   return (
     <div>
-      <label className="block text-sm font-semibold text-graphite mb-1">{label}</label>
+      <label htmlFor={id} className="block text-sm font-semibold text-graphite mb-1">{label}</label>
       <input
+        id={id}
         type="number"
         inputMode="decimal"
+        min="0"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="0"

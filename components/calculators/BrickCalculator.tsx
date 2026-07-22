@@ -53,11 +53,13 @@ export default function BrickCalculator() {
 
   return (
     <div className="w-full max-w-md mx-auto rounded-xl bg-white border border-concrete-dark shadow-sm p-5">
-      <div className="rocker flex mb-4 rounded-lg p-1">
+      <div className="rocker flex mb-4 rounded-lg p-1" role="radiogroup" aria-label="Unit system">
         {(["metric", "imperial"] as Unit[]).map((u) => (
           <button
             key={u}
             onClick={() => setUnit(u)}
+            role="radio"
+            aria-checked={unit === u}
             className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
               unit === u ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
@@ -67,11 +69,13 @@ export default function BrickCalculator() {
         ))}
       </div>
 
-      <div className="rocker flex mb-6 rounded-lg p-1">
+      <div className="rocker flex mb-6 rounded-lg p-1" role="radiogroup" aria-label="Brick or block">
         {(["brick", "block"] as const).map((t) => (
           <button
             key={t}
             onClick={() => selectUnitType(t)}
+            role="radio"
+            aria-checked={unitType === t}
             className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
               unitType === t ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
@@ -82,21 +86,23 @@ export default function BrickCalculator() {
       </div>
 
       <div className="space-y-4">
-        <Field label={`Wall length (${lengthUnit})`} value={wallLength} onChange={setWallLength} />
-        <Field label={`Wall height (${lengthUnit})`} value={wallHeight} onChange={setWallHeight} />
-        <Field label={`${UNIT_PRESETS[unitType].label} length (mm)`} value={brickLengthMm} onChange={setBrickLengthMm} />
-        <Field label={`${UNIT_PRESETS[unitType].label} height (mm)`} value={brickHeightMm} onChange={setBrickHeightMm} />
-        <Field label="Mortar joint (mm)" value={mortarJointMm} onChange={setMortarJointMm} />
+        <Field id="brick-wall-length" label={`Wall length (${lengthUnit})`} value={wallLength} onChange={setWallLength} />
+        <Field id="brick-wall-height" label={`Wall height (${lengthUnit})`} value={wallHeight} onChange={setWallHeight} />
+        <Field id="brick-unit-length" label={`${UNIT_PRESETS[unitType].label} length (mm)`} value={brickLengthMm} onChange={setBrickLengthMm} />
+        <Field id="brick-unit-height" label={`${UNIT_PRESETS[unitType].label} height (mm)`} value={brickHeightMm} onChange={setBrickHeightMm} />
+        <Field id="brick-mortar-joint" label="Mortar joint (mm)" value={mortarJointMm} onChange={setMortarJointMm} />
 
         <div>
-          <label className="block text-sm font-semibold text-graphite mb-1">
+          <label id="brick-mortar-bag-size-label" className="block text-sm font-semibold text-graphite mb-1">
             Mortar bag size
           </label>
-          <div className="flex gap-2">
+          <div className="flex gap-2" role="radiogroup" aria-labelledby="brick-mortar-bag-size-label">
             {[20, 25].map((size) => (
               <button
                 key={size}
                 onClick={() => setMortarBagSizeKg(size as 20 | 25)}
+                role="radio"
+                aria-checked={mortarBagSizeKg === size}
                 className={`flex-1 py-2 rounded-lg border-2 text-sm font-semibold transition ${
                   mortarBagSizeKg === size
                     ? "border-safety-dark bg-safety text-graphite"
@@ -110,14 +116,16 @@ export default function BrickCalculator() {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-graphite mb-1">
+          <label id="brick-mortar-mix-ratio-label" className="block text-sm font-semibold text-graphite mb-1">
             Mortar mix ratio
           </label>
-          <div className="space-y-2">
+          <div className="space-y-2" role="radiogroup" aria-labelledby="brick-mortar-mix-ratio-label">
             {MORTAR_MIX_PRESETS.map((preset, i) => (
               <button
                 key={preset.label}
                 onClick={() => setMortarMixIndex(i)}
+                role="radio"
+                aria-checked={mortarMixIndex === i}
                 className={`w-full text-left py-2 px-3 rounded-lg border-2 text-sm font-medium transition ${
                   mortarMixIndex === i
                     ? "border-safety-dark bg-safety text-graphite"
@@ -131,15 +139,17 @@ export default function BrickCalculator() {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-graphite mb-1">
+          <label htmlFor="brick-waste" className="block text-sm font-semibold text-graphite mb-1">
             Waste allowance: <span className="text-steel">{wastePercent}%</span>
           </label>
           <input
+            id="brick-waste"
             type="range"
             min={0}
             max={25}
             value={wastePercent}
             onChange={(e) => setWastePercent(Number(e.target.value))}
+            aria-valuetext={`${wastePercent}%`}
             className="w-full accent-safety"
           />
         </div>
@@ -194,20 +204,24 @@ export default function BrickCalculator() {
 }
 
 function Field({
+  id,
   label,
   value,
   onChange,
 }: {
+  id: string;
   label: string;
   value: string;
   onChange: (v: string) => void;
 }) {
   return (
     <div>
-      <label className="block text-sm font-semibold text-graphite mb-1">{label}</label>
+      <label htmlFor={id} className="block text-sm font-semibold text-graphite mb-1">{label}</label>
       <input
+        id={id}
         type="number"
         inputMode="decimal"
+        min="0"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="0"
