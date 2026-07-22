@@ -17,6 +17,8 @@ export const racks: Rack[] = [
         subtitle: "Enter your slab dimensions to get cubic metres, bags, and cost.",
         pageDescription:
           "Calculate how much concrete you need for your job. Instant results, bags required, and estimated cost — built for tradespeople on-site.",
+        icon: "concrete",
+        flagship: true,
       },
       {
         slug: "brick-calculator",
@@ -25,6 +27,7 @@ export const racks: Rack[] = [
         subtitle: "Enter your wall dimensions and brick size to get bricks and mortar needed.",
         pageDescription:
           "Calculate how many bricks or blocks and how much mortar you need for a wall. Instant results built for tradespeople on-site.",
+        icon: "brick",
       },
       {
         slug: "rebar-calculator",
@@ -33,6 +36,7 @@ export const racks: Rack[] = [
         subtitle: "Select bar diameter and enter length and quantity to get total weight.",
         pageDescription:
           "Calculate steel rebar weight by diameter, length, and bar count. Built for tradespeople on-site.",
+        icon: "rebar",
       },
       {
         slug: "excavation-calculator",
@@ -41,6 +45,7 @@ export const racks: Rack[] = [
         subtitle: "Enter your trench or hole dimensions to get volume and spoil removal estimates.",
         pageDescription:
           "Calculate excavation volume, bulked spoil, and skips required for your dig. Built for tradespeople on-site.",
+        icon: "excavation",
       },
       {
         slug: "unit-converter",
@@ -48,6 +53,7 @@ export const racks: Rack[] = [
         cardDescription: "Quick length, area, volume, and weight conversions.",
         subtitle: "Convert between metric and imperial units — length, area, volume, and weight.",
         pageDescription: "Quick length, area, volume, and weight conversions for the job site.",
+        icon: "unit-converter",
       },
       {
         slug: "material-cost-calculator",
@@ -56,8 +62,15 @@ export const racks: Rack[] = [
         subtitle: "Add your materials, labour, and margin to get a quick job total.",
         pageDescription:
           "Add up materials, labour, and margin to build a quick job quote. Built for tradespeople on-site.",
+        icon: "material-cost",
       },
     ],
+  },
+  {
+    slug: "catering",
+    name: "Catering",
+    comingSoon: true,
+    tools: [],
   },
 ];
 
