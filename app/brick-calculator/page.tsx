@@ -1,19 +1,18 @@
 import BrickCalculator from "@/components/calculators/BrickCalculator";
 import ToolHeader from "@/components/ToolHeader";
+import { getToolBySlug } from "@/lib/racks";
+
+const tool = getToolBySlug("brick-calculator")!;
 
 export const metadata = {
-  title: "Brick Calculator — ToolRack",
-  description:
-    "Calculate how many bricks and mortar bags you need for a wall. Instant results built for tradespeople on-site.",
+  title: `${tool.name} — ToolRack`,
+  description: tool.pageDescription,
 };
 
 export default function BrickCalculatorPage() {
   return (
     <main className="min-h-screen bg-concrete">
-      <ToolHeader
-        title="Brick Calculator"
-        subtitle="Enter your wall dimensions and brick size to get bricks and mortar needed."
-      />
+      <ToolHeader title={tool.name} subtitle={tool.subtitle} />
       <div className="px-6 -mt-4 pb-14">
         <BrickCalculator />
       </div>

@@ -1,24 +1,9 @@
 import Link from "next/link";
-
-const tools = [
-  {
-    name: "Concrete Calculator",
-    href: "/concrete-calculator",
-    description: "Cubic metres, bags required, and estimated cost for your slab.",
-  },
-  {
-    name: "Brick Calculator",
-    href: "/brick-calculator",
-    description: "Bricks and mortar needed for your wall, waste allowance included.",
-  },
-  {
-    name: "Material Cost Calculator",
-    href: "/material-cost-calculator",
-    description: "Add up materials, labour, and margin to build a quick job quote.",
-  },
-];
+import { racks } from "@/lib/racks";
 
 export default function Home() {
+  const constructionTools = racks.find((r) => r.slug === "construction")?.tools ?? [];
+
   return (
     <main className="min-h-screen bg-concrete">
       {/* Hero: the rack itself */}
@@ -39,13 +24,13 @@ export default function Home() {
 
       {/* Tools hanging on the rack */}
       <div className="max-w-md mx-auto px-6 -mt-10 pb-16 space-y-5">
-        {tools.map((tool) => (
-          <Link key={tool.href} href={tool.href} className="block group">
+        {constructionTools.map((tool) => (
+          <Link key={tool.slug} href={`/${tool.slug}`} className="block group">
             <div className="hook-card rounded-lg bg-white border border-concrete-dark pt-6 px-5 pb-5 shadow-sm transition-transform group-hover:-translate-y-0.5 group-hover:shadow-md">
               <h2 className="font-display uppercase tracking-wide text-graphite text-lg">
                 {tool.name}
               </h2>
-              <p className="text-sm text-neutral-600 mt-1">{tool.description}</p>
+              <p className="text-sm text-neutral-600 mt-1">{tool.cardDescription}</p>
               <span className="inline-block mt-3 text-xs font-semibold uppercase tracking-wider text-steel">
                 Open tool →
               </span>

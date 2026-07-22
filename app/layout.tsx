@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Oswald, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const oswald = Oswald({
@@ -19,10 +21,39 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
 });
 
+const title = "ToolRack — The Digital Toolbox for Skilled Trades";
+const description =
+  "Fast, reliable calculators for tradespeople. Calculate concrete, bricks, and material costs on-site, on your phone.";
+
 export const metadata: Metadata = {
-  title: "ToolRack — The Digital Toolbox for Skilled Trades",
-  description:
-    "Fast, reliable calculators for tradespeople. Calculate concrete, bricks, and material costs on-site, on your phone.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: title,
+    template: "%s",
+  },
+  description,
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title,
+    description,
+    url: SITE_URL,
+    siteName: "ToolRack",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
+  verification: {
+    google: "zVOsJt1VCzNzmvJNpJedXJBt8N-YEByBFAC9WdlkSLI",
+  },
+};
+
+export const viewport: Viewport = {
   themeColor: "#1C1F22",
 };
 
@@ -35,6 +66,7 @@ export default function RootLayout({
     <html lang="en" className={`${oswald.variable} ${inter.variable} ${plexMono.variable}`}>
       <body className="bg-concrete text-graphite antialiased font-body">
         {children}
+        <Analytics />
       </body>
     </html>
   );
