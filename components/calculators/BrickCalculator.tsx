@@ -158,7 +158,7 @@ export default function BrickCalculator() {
       {result && (
         <div className="readout-panel mt-6 rounded-lg p-5">
           <p className="text-[11px] uppercase tracking-widest text-neutral-400 mb-1">
-            You'll need approximately
+            You&apos;ll need approximately
           </p>
           <p className="readout-digits text-3xl font-semibold mb-3">
             {result.bricksRequired} {unitType === "brick" ? "bricks" : "blocks"}

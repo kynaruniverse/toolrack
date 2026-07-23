@@ -74,7 +74,7 @@ export default function ExcavationCalculator() {
             <span className="readout-digits font-semibold">
               {result.bulkedSpoilM3} m³
             </span>{" "}
-            — that's about{" "}
+            — that&apos;s about{" "}
             <span className="readout-digits font-semibold">
               {result.skipsRequired} skip{result.skipsRequired > 1 ? "s" : ""}
             </span>{" "}
