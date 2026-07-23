@@ -59,4 +59,14 @@
     background: #DFDEDA;
     border: 1px solid #C9C7C1;
   }
+
+  /* Storage bin shape used for department tiles on the homepage — tapered
+     like the small plastic bins in a real pegboard rack. Pair with a
+     .bin-lip element stacked above it for the flat rim. */
+  .storage-bin {
+    clip-path: polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%);
+  }
+  .bin-lip {
+    border-radius: 3px 3px 0 0;
+  }
 }

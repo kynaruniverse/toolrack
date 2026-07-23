@@ -9,6 +9,8 @@ export const racks: Rack[] = [
   {
     slug: "construction",
     name: "Construction",
+    tagline: "6 calculators",
+    icon: "construction",
     tools: [
       {
         slug: "concrete-calculator",
@@ -18,7 +20,6 @@ export const racks: Rack[] = [
         pageDescription:
           "Calculate how much concrete you need for your job. Instant results, bags required, and estimated cost — built for tradespeople on-site.",
         icon: "concrete",
-        flagship: true,
       },
       {
         slug: "brick-calculator",
@@ -69,6 +70,32 @@ export const racks: Rack[] = [
   {
     slug: "catering",
     name: "Catering",
+    tagline: "Coming soon",
+    icon: "catering",
+    comingSoon: true,
+    tools: [],
+  },
+  {
+    slug: "plumbing",
+    name: "Plumbing",
+    tagline: "Coming soon",
+    icon: "plumbing",
+    comingSoon: true,
+    tools: [],
+  },
+  {
+    slug: "electrician",
+    name: "Electrician",
+    tagline: "Coming soon",
+    icon: "electrician",
+    comingSoon: true,
+    tools: [],
+  },
+  {
+    slug: "business",
+    name: "Business",
+    tagline: "Coming soon",
+    icon: "business",
     comingSoon: true,
     tools: [],
   },
@@ -80,4 +107,8 @@ export function getAllTools() {
 
 export function getToolBySlug(slug: string) {
   return getAllTools().find((tool) => tool.slug === slug);
+}
+
+export function getRackBySlug(slug: string) {
+  return racks.find((rack) => rack.slug === slug);
 }

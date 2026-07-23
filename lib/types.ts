@@ -23,12 +23,22 @@ export interface ToolMeta {
   subtitle: string; // one-liner shown under the title on the tool's own page
   pageDescription: string; // meta description for the tool's page
   icon: ToolIconName; // homepage card mark, see components/ToolIcon.tsx
-  flagship?: boolean; // gives the card a subtle accent as the suggested starting tool
 }
+
+// Matches a case in components/DepartmentIcon.tsx. Add a new icon there
+// before referencing a new value here.
+export type DepartmentIconName =
+  | "construction"
+  | "plumbing"
+  | "catering"
+  | "business"
+  | "electrician";
 
 export interface Rack {
   slug: string;
   name: string;
+  tagline: string; // short label shown on the homepage bin, e.g. "6 calculators"
+  icon: DepartmentIconName;
   tools: ToolMeta[];
-  comingSoon?: boolean; // renders as a placeholder section instead of a tool grid
+  comingSoon?: boolean; // renders as a muted, unclickable bin instead of a linked one
 }
