@@ -60,60 +60,66 @@
     border: 1px solid #C9C7C1;
   }
 
-  /* Department bin v2: a glossy pedestal with a frosted "glass" icon panel
-     floating above it, replacing the flat trapezoid bin. CSS-only illusion
-     of depth — gradients + blur + layered shadow, no 3D engine. */
-  .pedestal {
-    background: linear-gradient(155deg, #5A7A96 0%, #3E5C76 55%, #2A2E33 100%);
-    box-shadow:
-      0 10px 18px -8px rgba(0, 0, 0, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  }
-  .pedestal.is-dim {
-    background: linear-gradient(155deg, #4A4E53 0%, #33383D 55%, #24272B 100%);
-    box-shadow:
-      0 8px 14px -8px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  /* Department bin v3 — adapted from a user-provided mockup (bin-mockup.html):
+     a real storage-bin anatomy in pure CSS. A recessed back wall sits behind
+     a front lip shaped with clip-path into an actual scoop cutout (the detail
+     that reads as "storage bin" rather than a rounded rectangle), plus a
+     badge label. Colours come from --bin-* custom properties set inline per
+     instance (live vs coming-soon), so this file only defines shape/shadow. */
+  .storage-bin {
+    position: relative;
   }
 
-  .glow-ring {
-    height: 3px;
+  .bin-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px 14px 8px 8px;
+    background: linear-gradient(180deg, var(--bin-back-top), var(--bin-back-bot));
+    box-shadow: inset 0 6px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .bin-front {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 58%;
+    background: linear-gradient(
+      180deg,
+      var(--bin-front-top) 0%,
+      var(--bin-front-mid) 45%,
+      var(--bin-front-bot) 100%
+    );
+    border-radius: 0 0 10px 10px;
+    clip-path: polygon(
+      0 0,
+      24% 0,
+      30% 38%,
+      70% 38%,
+      76% 0,
+      100% 0,
+      100% 100%,
+      0 100%
+    );
+    box-shadow:
+      inset 0 2px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -8px 10px rgba(0, 0, 0, 0.28),
+      0 8px 14px -6px rgba(0, 0, 0, 0.4);
+  }
+
+  .bin-badge {
+    position: absolute;
+    bottom: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.32);
+    color: #ffffff;
+    padding: 2px 7px;
     border-radius: 9999px;
-    filter: blur(1.5px);
-  }
-
-  .glass-panel {
-    background: linear-gradient(
-      160deg,
-      rgba(255, 255, 255, 0.4),
-      rgba(255, 255, 255, 0.06) 45%,
-      rgba(255, 255, 255, 0.16)
-    );
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow:
-      0 10px 20px -8px rgba(0, 0, 0, 0.5),
-      inset 0 1px 1px rgba(255, 255, 255, 0.6);
-  }
-  .glass-panel.is-dim {
-    background: linear-gradient(
-      160deg,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.02) 45%,
-      rgba(255, 255, 255, 0.06)
-    );
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow:
-      0 6px 12px -8px rgba(0, 0, 0, 0.35),
-      inset 0 1px 1px rgba(255, 255, 255, 0.25);
-  }
-
-  .glass-streak {
-    background: linear-gradient(
-      115deg,
-      rgba(255, 255, 255, 0.55) 0%,
-      rgba(255, 255, 255, 0) 35%
-    );
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 }

@@ -2,52 +2,52 @@ import Link from "next/link";
 import { Rack } from "@/lib/types";
 import DepartmentIcon from "@/components/DepartmentIcon";
 
+// Live bins use the safety-amber palette; coming-soon bins use a muted
+// gunmetal/graphite palette. Set as CSS custom properties so app/globals.css
+// only has to define the bin's shape and shadows once.
+const LIVE_COLORS = {
+  "--bin-back-top": "#3A2A05",
+  "--bin-back-bot": "#1C1F22",
+  "--bin-front-top": "#FFDE85",
+  "--bin-front-mid": "#FFC72C",
+  "--bin-front-bot": "#C98A00",
+} as React.CSSProperties;
+
+const DIM_COLORS = {
+  "--bin-back-top": "#33383D",
+  "--bin-back-bot": "#1C1F22",
+  "--bin-front-top": "#6B7076",
+  "--bin-front-mid": "#53585D",
+  "--bin-front-bot": "#3A3E42",
+} as React.CSSProperties;
+
 export default function DepartmentBin({ rack }: { rack: Rack }) {
   const dim = rack.comingSoon;
 
   const content = (
-    <div className="flex flex-col items-center" style={{ perspective: "500px" }}>
-      {/* Glass icon panel — floats above the pedestal, tilted slightly for depth */}
+    <div>
       <div
-        className={`glass-panel relative w-16 h-16 rounded-2xl flex items-center justify-center mb-[-14px] z-10 ${
-          dim ? "is-dim" : ""
-        }`}
-        style={{ transform: "perspective(500px) rotateX(8deg)" }}
+        className="storage-bin h-32 w-full"
+        style={dim ? DIM_COLORS : LIVE_COLORS}
       >
-        <div className="glass-streak absolute inset-0 rounded-2xl pointer-events-none" />
+        <div className="bin-back" />
         <DepartmentIcon
           name={rack.icon}
-          className={`w-7 h-7 relative ${
+          className={`absolute left-1/2 top-[30%] w-7 h-7 -translate-x-1/2 -translate-y-1/2 ${
             dim ? "text-neutral-400" : "text-white"
           }`}
         />
+        <div className="bin-front" />
+        <span className="bin-badge">{rack.name}</span>
       </div>
-
-      {/* Glow seam between glass panel and pedestal */}
-      <div
-        className={`glow-ring w-10 ${dim ? "bg-neutral-500/40" : "bg-safety"}`}
-      />
-
-      {/* Pedestal base */}
-      <div
-        className={`pedestal w-20 h-8 rounded-xl ${dim ? "is-dim" : ""}`}
-      />
-
-      <div className="text-center mt-3">
-        <p
-          className={`font-display uppercase text-xs tracking-wide leading-tight ${
-            dim ? "text-neutral-500" : "text-graphite"
-          }`}
-        >
-          {rack.name}
-        </p>
-        <p className="text-[10px] text-neutral-500 mt-0.5">{rack.tagline}</p>
-      </div>
+      <p className="text-[10px] text-neutral-500 text-center mt-1.5">
+        {rack.tagline}
+      </p>
     </div>
   );
 
   if (dim) {
-    return <div className="opacity-80">{content}</div>;
+    return <div className="opacity-90">{content}</div>;
   }
 
   return (
