@@ -24,11 +24,11 @@ export default function Home() {
       <div className="h-3 bg-gradient-to-b from-safety to-safety-dark shadow-md" />
 
       {/* Departments: one bin per trade */}
-      <div className="max-w-md mx-auto px-6 pt-8 pb-16">
-        <p className="font-display uppercase tracking-[0.2em] text-graphite text-xs mb-5 text-center">
+      <div className="max-w-md mx-auto px-6 pt-12 pb-16">
+        <p className="font-display uppercase tracking-[0.2em] text-graphite text-xs mb-6 text-center">
           Pick a department
         </p>
-        <div className="grid grid-cols-3 gap-x-4 gap-y-7">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-9">
           {racks.map((rack) => (
             <DepartmentBin key={rack.slug} rack={rack} />
           ))}
