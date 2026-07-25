@@ -14,7 +14,11 @@ export type ToolIconName =
   | "rebar"
   | "excavation"
   | "unit-converter"
-  | "material-cost";
+  | "material-cost"
+  | "recipe-cost"
+  | "food-cost-percent"
+  | "menu-price"
+  | "kitchen-converter";
 
 export interface ToolMeta {
   slug: string; // matches the route folder under app/, e.g. "concrete-calculator"

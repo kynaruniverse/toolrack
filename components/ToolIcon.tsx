@@ -77,5 +77,41 @@ export default function ToolIcon({
           <path d="M13 15 h6 M16 12 v6" />
         </svg>
       );
+    case "recipe-cost":
+      // A mixing bowl with a whisk
+      return (
+        <svg {...common}>
+          <path d="M4 10 h16 c0 5 -3 9 -8 9 s-8 -4 -8 -9 Z" />
+          <path d="M12 10 V3" />
+          <path d="M10.5 3 q1.5 -1.5 3 0" />
+        </svg>
+      );
+    case "food-cost-percent":
+      // A percent sign
+      return (
+        <svg {...common}>
+          <circle cx="7.5" cy="7.5" r="2.5" />
+          <circle cx="16.5" cy="16.5" r="2.5" />
+          <path d="M18 6 L6 18" />
+        </svg>
+      );
+    case "menu-price":
+      // A price tag with a punched hole
+      return (
+        <svg {...common}>
+          <path d="M20 12.5 L12.5 20 a2 2 0 0 1 -2.8 0 L4 13.3 a2 2 0 0 1 0 -2.8 L11.5 3 H19 a2 2 0 0 1 2 2 V12.5 Z" />
+          <circle cx="15.5" cy="7.5" r="1.4" />
+        </svg>
+      );
+    case "kitchen-converter":
+      // A measuring cup with a pour spout and graduation lines
+      return (
+        <svg {...common}>
+          <path d="M5.5 8 h11 l-2 11 h-7 Z" />
+          <path d="M16.5 8 L19.5 6.7" />
+          <path d="M7 12.2 h7" />
+          <path d="M7.6 16.3 h5.8" />
+        </svg>
+      );
   }
 }

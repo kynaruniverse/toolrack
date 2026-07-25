@@ -49,7 +49,7 @@ export default function OpengraphImage() {
             display: "flex",
           }}
         >
-          Fast, reliable calculators — built for the job site
+          Fast, reliable tools — built for the job
         </div>
       </div>
     ),

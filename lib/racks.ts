@@ -70,10 +70,46 @@ export const racks: Rack[] = [
   {
     slug: "catering",
     name: "Catering",
-    tagline: "Coming soon",
+    tagline: "4 tools",
     code: "CAT",
-    comingSoon: true,
-    tools: [],
+    tools: [
+      {
+        slug: "recipe-cost-calculator",
+        name: "Recipe Cost Calculator",
+        cardDescription: "Total ingredient cost and cost per portion for any recipe.",
+        subtitle: "Add your ingredients and portion count to get cost per portion.",
+        pageDescription:
+          "Calculate the total ingredient cost and cost per portion for a recipe. Built for caterers and kitchens.",
+        icon: "recipe-cost",
+      },
+      {
+        slug: "food-cost-calculator",
+        name: "Food Cost % Calculator",
+        cardDescription: "Food cost percentage, gross profit, and a target-price suggestion.",
+        subtitle: "Enter ingredient cost and menu price to see your food cost %.",
+        pageDescription:
+          "Calculate food cost percentage and gross profit, or find the menu price needed to hit a target food cost %.",
+        icon: "food-cost-percent",
+      },
+      {
+        slug: "menu-price-calculator",
+        name: "Menu Price & Markup Calculator",
+        cardDescription: "Suggested menu price from a markup or margin percentage.",
+        subtitle: "Choose markup or margin to get a suggested menu price.",
+        pageDescription:
+          "Calculate a suggested menu price from either a markup or margin percentage, with the equivalent of the other shown too.",
+        icon: "menu-price",
+      },
+      {
+        slug: "kitchen-unit-converter",
+        name: "Kitchen Unit Converter",
+        cardDescription: "Cups, tablespoons, grams, and ounces — including ingredient-aware conversions.",
+        subtitle: "Convert between kitchen volume and weight units.",
+        pageDescription:
+          "Convert between kitchen measurement units — cups, tablespoons, grams, ounces — including ingredient-aware volume-to-weight conversions.",
+        icon: "kitchen-converter",
+      },
+    ],
   },
   {
     slug: "plumbing",

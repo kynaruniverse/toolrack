@@ -13,7 +13,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
 
   return {
     title: `${rack.name} Tools — ToolRack`,
-    description: `${rack.name} calculators and tools for tradespeople — fast, no sign-up, built for the job site.`,
+    description: `${rack.name} tools — fast, no sign-up, built for the job.`,
   };
 }
 
