@@ -1,44 +1,39 @@
 import Link from "next/link";
 import { Rack } from "@/lib/types";
-import DepartmentIcon from "@/components/DepartmentIcon";
 
-// Live drawers use the safety-amber palette (dark text/icon for contrast on
-// the bright background); coming-soon drawers use a muted gunmetal palette.
+// Live tags use a kraft-cardstock tan; coming-soon tags use a muted grey
+// cardstock. Set as CSS custom properties so app/globals.css only defines
+// the tag's shape/shadow once.
 const LIVE_COLORS = {
-  "--drawer-bg": "#FFC72C",
-  "--drawer-handle": "#C98A00",
+  "--tag-bg": "#E4C89A",
+  "--tag-string": "#8A7A5C",
+  "--tag-ink": "#5C4A2E",
 } as React.CSSProperties;
 
 const DIM_COLORS = {
-  "--drawer-bg": "#33383D",
-  "--drawer-handle": "#24272B",
+  "--tag-bg": "#CFCAC0",
+  "--tag-string": "#9A958C",
+  "--tag-ink": "#8A8580",
 } as React.CSSProperties;
 
 export default function DepartmentBin({ rack }: { rack: Rack }) {
   const dim = rack.comingSoon;
 
   const content = (
-    <div>
-      <div
-        className="drawer h-28 w-full"
-        style={dim ? DIM_COLORS : LIVE_COLORS}
-      >
-        <div className="drawer-handle" />
-        <DepartmentIcon
-          name={rack.icon}
-          className={`absolute left-1/2 top-1/2 w-7 h-7 -translate-x-1/2 -translate-y-1/2 ${
-            dim ? "text-neutral-400" : "text-graphite"
-          }`}
-        />
-        <span
-          className={`drawer-label ${
-            dim ? "text-neutral-300" : "text-graphite"
-          }`}
-        >
-          {rack.name}
-        </span>
+    <div className="pt-4">
+      <div className="hang-tag" style={dim ? DIM_COLORS : LIVE_COLORS}>
+        <div className="hang-tag-string" />
+        <div className="hang-tag-hole" />
+        <div className="flex flex-col items-center justify-center h-full pt-[18%] px-2">
+          <span className="hang-tag-code font-display text-2xl font-bold leading-none">
+            {rack.code}
+          </span>
+          <span className="hang-tag-name font-display uppercase text-[10px] tracking-wide mt-1.5 text-center">
+            {rack.name}
+          </span>
+        </div>
       </div>
-      <p className="text-[10px] text-neutral-500 text-center mt-1.5">
+      <p className="text-[10px] text-neutral-500 text-center mt-2">
         {rack.tagline}
       </p>
     </div>

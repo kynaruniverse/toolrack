@@ -60,43 +60,58 @@
     border: 1px solid #C9C7C1;
   }
 
-  /* Department drawer v4 — gutted the bin/bucket approach (clip-path
-     notches don't read clearly at ~110px on a phone). This is a flat
-     toolbox-drawer front instead: a simple card with a recessed pull-handle
-     groove near the top and a label near the bottom. Colours come from
-     --drawer-* custom properties set inline per instance (live vs
-     coming-soon), so this file only defines shape/shadow. */
-  .drawer {
+  /* Department hang-tag v5 — the approved design after comparing 6 mockups
+     (department-tile-concepts.html). A cardstock bin tag with a punched
+     hole, a string loop, a big 2-3 letter code, and the full name below —
+     no icon at all, since icons kept reading as generic/AI-ish at this
+     size across two earlier attempts. Colours come from --tag-* custom
+     properties set inline per instance (live vs coming-soon). */
+  .hang-tag {
     position: relative;
-    border-radius: 12px;
-    background: var(--drawer-bg);
-    box-shadow:
-      0 6px 14px -6px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    width: 100%;
+    aspect-ratio: 108 / 132;
+    background: var(--tag-bg);
+    background-image: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.025) 0px,
+      rgba(0, 0, 0, 0.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    clip-path: polygon(50% 0%, 100% 18%, 100% 100%, 0 100%, 0 18%);
+    box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.22);
   }
 
-  .drawer-handle {
+  .hang-tag-hole {
     position: absolute;
-    top: 13px;
+    top: 10%;
     left: 50%;
-    width: 34%;
-    height: 6px;
+    width: 9%;
+    aspect-ratio: 1;
     transform: translateX(-50%);
-    border-radius: 9999px;
-    background: var(--drawer-handle);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.18);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
-  .drawer-label {
+  .hang-tag-string {
     position: absolute;
-    bottom: 8px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    white-space: nowrap;
+    top: -11%;
+    left: 50%;
+    width: 18%;
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    border: 2px solid var(--tag-string);
+    border-bottom: none;
+    border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  }
+
+  .hang-tag-code {
+    color: var(--tag-ink);
+  }
+
+  .hang-tag-name {
+    color: var(--tag-ink);
+    opacity: 0.85;
   }
 }

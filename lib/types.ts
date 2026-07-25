@@ -25,20 +25,11 @@ export interface ToolMeta {
   icon: ToolIconName; // homepage card mark, see components/ToolIcon.tsx
 }
 
-// Matches a case in components/DepartmentIcon.tsx. Add a new icon there
-// before referencing a new value here.
-export type DepartmentIconName =
-  | "construction"
-  | "plumbing"
-  | "catering"
-  | "business"
-  | "electrician";
-
 export interface Rack {
   slug: string;
   name: string;
   tagline: string; // short label shown on the homepage bin, e.g. "6 calculators"
-  icon: DepartmentIconName;
+  code: string; // 2-3 letter code shown large on the hang-tag, e.g. "CON"
   tools: ToolMeta[];
   comingSoon?: boolean; // renders as a muted, unclickable bin instead of a linked one
 }
