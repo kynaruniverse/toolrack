@@ -20,17 +20,22 @@ export default function DepartmentBin({ rack }: { rack: Rack }) {
   const dim = rack.comingSoon;
 
   const content = (
-    <div className="pt-4">
-      <div className="hang-tag" style={dim ? DIM_COLORS : LIVE_COLORS}>
+    <div className="pt-5">
+      <div
+        className="hang-tag-wrap"
+        style={dim ? DIM_COLORS : LIVE_COLORS}
+      >
         <div className="hang-tag-string" />
-        <div className="hang-tag-hole" />
-        <div className="flex flex-col items-center justify-center h-full pt-[18%] px-2">
-          <span className="hang-tag-code font-display text-2xl font-bold leading-none">
-            {rack.code}
-          </span>
-          <span className="hang-tag-name font-display uppercase text-[10px] tracking-wide mt-1.5 text-center">
-            {rack.name}
-          </span>
+        <div className="hang-tag">
+          <div className="hang-tag-hole" />
+          <div className="flex flex-col items-center justify-center h-full pt-[18%] px-2">
+            <span className="hang-tag-code font-display text-2xl font-bold leading-none">
+              {rack.code}
+            </span>
+            <span className="hang-tag-name font-display uppercase text-[10px] tracking-wide mt-1.5 text-center">
+              {rack.name}
+            </span>
+          </div>
         </div>
       </div>
       <p className="text-[10px] text-neutral-500 text-center mt-2">
