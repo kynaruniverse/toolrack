@@ -2,10 +2,10 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "ToolRack — The Digital Toolbox",
+    name: "ToolRack — The Digital Toolbox for Skilled Trades",
     short_name: "ToolRack",
     description:
-      "Fast, reliable tools built for the job — whatever the job. No sign-up, no clutter.",
+      "Fast, reliable calculators for tradespeople. No sign-up, no clutter, built for the job site.",
     start_url: "/",
     display: "standalone",
     background_color: "#1C1F22",
