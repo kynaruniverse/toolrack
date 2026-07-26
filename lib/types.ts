@@ -1,13 +1,3 @@
-// Metadata-only registry types. This is deliberately NOT a generic UI
-// renderer — each tool's form is different enough (sliders, preset button
-// groups, dynamic lists, dropdowns) that forcing them through one shared
-// component would mean fighting the framework more than it saves. Instead,
-// this registry is the single source of truth for the text and routing that
-// every tool needs, so adding a tool means adding one entry here rather than
-// hunting through the homepage, page metadata, and header separately.
-
-// Matches a case in components/ToolIcon.tsx. Add a new icon there before
-// referencing a new value here.
 export type ToolIconName =
   | "concrete"
   | "brick"
@@ -20,6 +10,21 @@ export type ToolIconName =
   | "menu-price"
   | "kitchen-converter";
 
+export type ToolType =
+  | "calculator"
+  | "converter"
+  | "estimator"
+  | "tracker"
+  | "timer"
+  | "checklist"
+  | "scheduler"
+  | "generator"
+  | "comparator"
+  | "scanner"
+  | "analyser"
+  | "formatter"
+  | "predictor";
+
 export interface ToolMeta {
   slug: string; // matches the route folder under app/, e.g. "concrete-calculator"
   name: string; // display name, e.g. "Concrete Calculator"
@@ -27,12 +32,13 @@ export interface ToolMeta {
   subtitle: string; // one-liner shown under the title on the tool's own page
   pageDescription: string; // meta description for the tool's page
   icon: ToolIconName; // homepage card mark, see components/ToolIcon.tsx
+  toolType: ToolType; // what kind of tool this is, e.g. "calculator", "converter"
 }
 
 export interface Rack {
   slug: string;
   name: string;
-  tagline: string; // short label shown on the homepage bin, e.g. "6 calculators"
+  tagline: string; // short label shown on the homepage bin, e.g. "6 tools"
   code: string; // 2-3 letter code shown large on the hang-tag, e.g. "CON"
   tools: ToolMeta[];
   comingSoon?: boolean; // renders as a muted, unclickable bin instead of a linked one

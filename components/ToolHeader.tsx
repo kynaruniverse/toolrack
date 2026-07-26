@@ -3,18 +3,22 @@ import Link from "next/link";
 export default function ToolHeader({
   title,
   subtitle,
+  backHref,
+  backLabel,
 }: {
   title: string;
   subtitle: string;
+  backHref: string;
+  backLabel: string;
 }) {
   return (
     <div className="pegboard px-6 pt-8 pb-10">
       <div className="max-w-md mx-auto">
         <Link
-          href="/"
+          href={backHref}
           className="inline-block text-xs font-semibold uppercase tracking-wider text-safety mb-4"
         >
-          ← Back to the rack
+          ← {backLabel}
         </Link>
         <h1 className="font-display uppercase text-3xl tracking-tight text-white mb-2">
           {title}

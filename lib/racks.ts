@@ -9,7 +9,7 @@ export const racks: Rack[] = [
   {
     slug: "construction",
     name: "Construction",
-    tagline: "6 calculators",
+    tagline: "6 tools",
     code: "CON",
     tools: [
       {
@@ -20,6 +20,7 @@ export const racks: Rack[] = [
         pageDescription:
           "Calculate how much concrete you need for your job. Instant results, bags required, and estimated cost — built for tradespeople on-site.",
         icon: "concrete",
+        toolType: "calculator",
       },
       {
         slug: "brick-calculator",
@@ -29,6 +30,7 @@ export const racks: Rack[] = [
         pageDescription:
           "Calculate how many bricks or blocks and how much mortar you need for a wall. Instant results built for tradespeople on-site.",
         icon: "brick",
+        toolType: "calculator",
       },
       {
         slug: "rebar-calculator",
@@ -38,6 +40,7 @@ export const racks: Rack[] = [
         pageDescription:
           "Calculate steel rebar weight by diameter, length, and bar count. Built for tradespeople on-site.",
         icon: "rebar",
+        toolType: "calculator",
       },
       {
         slug: "excavation-calculator",
@@ -47,6 +50,7 @@ export const racks: Rack[] = [
         pageDescription:
           "Calculate excavation volume, bulked spoil, and skips required for your dig. Built for tradespeople on-site.",
         icon: "excavation",
+        toolType: "calculator",
       },
       {
         slug: "unit-converter",
@@ -55,6 +59,7 @@ export const racks: Rack[] = [
         subtitle: "Convert between metric and imperial units — length, area, volume, and weight.",
         pageDescription: "Quick length, area, volume, and weight conversions for the job site.",
         icon: "unit-converter",
+        toolType: "converter",
       },
       {
         slug: "material-cost-calculator",
@@ -64,6 +69,7 @@ export const racks: Rack[] = [
         pageDescription:
           "Add up materials, labour, and margin to build a quick job quote. Built for tradespeople on-site.",
         icon: "material-cost",
+        toolType: "estimator",
       },
     ],
   },
@@ -81,6 +87,7 @@ export const racks: Rack[] = [
         pageDescription:
           "Calculate the total ingredient cost and cost per portion for a recipe. Built for caterers and kitchens.",
         icon: "recipe-cost",
+        toolType: "calculator",
       },
       {
         slug: "food-cost-calculator",
@@ -90,6 +97,7 @@ export const racks: Rack[] = [
         pageDescription:
           "Calculate food cost percentage and gross profit, or find the menu price needed to hit a target food cost %.",
         icon: "food-cost-percent",
+        toolType: "analyser",
       },
       {
         slug: "menu-price-calculator",
@@ -99,6 +107,7 @@ export const racks: Rack[] = [
         pageDescription:
           "Calculate a suggested menu price from either a markup or margin percentage, with the equivalent of the other shown too.",
         icon: "menu-price",
+        toolType: "calculator",
       },
       {
         slug: "kitchen-unit-converter",
@@ -108,6 +117,7 @@ export const racks: Rack[] = [
         pageDescription:
           "Convert between kitchen measurement units — cups, tablespoons, grams, ounces — including ingredient-aware volume-to-weight conversions.",
         icon: "kitchen-converter",
+        toolType: "converter",
       },
     ],
   },
@@ -135,6 +145,22 @@ export const racks: Rack[] = [
     comingSoon: true,
     tools: [],
   },
+  {
+    slug: "roofing",
+    name: "Roofing",
+    tagline: "Coming soon",
+    code: "ROOF",
+    comingSoon: true,
+    tools: [],
+  },
+  {
+    slug: "landscaping",
+    name: "Landscaping",
+    tagline: "Coming soon",
+    code: "LND",
+    comingSoon: true,
+    tools: [],
+  },
 ];
 
 export function getAllTools() {
@@ -147,4 +173,8 @@ export function getToolBySlug(slug: string) {
 
 export function getRackBySlug(slug: string) {
   return racks.find((rack) => rack.slug === slug);
+}
+
+export function getRackForTool(slug: string) {
+  return racks.find((rack) => rack.tools.some((tool) => tool.slug === slug));
 }

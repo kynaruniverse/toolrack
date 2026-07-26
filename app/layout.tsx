@@ -23,7 +23,7 @@ const plexMono = IBM_Plex_Mono({
 
 const title = "ToolRack — The Digital Toolbox for Skilled Trades";
 const description =
-  "Fast, reliable calculators for tradespeople. Calculate concrete, bricks, and material costs on-site, on your phone.";
+  "Fast, reliable tools for hands-on trades — construction, catering, and more. No sign-up, no clutter, built for the job.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

@@ -14,8 +14,7 @@ export default function Home() {
             ToolRack
           </h1>
           <p className="text-neutral-300 leading-relaxed">
-            Fast, reliable calculators — no sign-up, no clutter, built for the
-            job site.
+            Fast, reliable tools — no sign-up, no clutter, built for the job.
           </p>
         </div>
       </div>

@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "ToolRack — The Digital Toolbox for Skilled Trades",
     short_name: "ToolRack",
     description:
-      "Fast, reliable calculators for tradespeople. No sign-up, no clutter, built for the job site.",
+      "Fast, reliable tools for hands-on trades. No sign-up, no clutter, built for the job.",
     start_url: "/",
     display: "standalone",
     background_color: "#1C1F22",
