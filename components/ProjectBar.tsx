@@ -41,11 +41,12 @@ export default function ProjectBar() {
   if (!active) return null;
 
   return (
-    <div className="max-w-md mx-auto px-6 -mt-2 mb-4 relative">
+    <div className="max-w-md mx-auto px-6 -mt-2 mb-4 relative pt-3">
+      <div className="docket-clip" />
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="w-full flex items-center justify-between rounded-lg border-2 border-safety-dark bg-white px-4 py-2.5 shadow-sm"
+        className="docket w-full flex items-center justify-between rounded-lg border border-concrete-dark px-4 pt-4 pb-2.5 shadow-sm"
       >
         <span className="text-left">
           <span className="block text-[10px] uppercase tracking-widest text-neutral-400 font-semibold">
@@ -74,8 +75,11 @@ export default function ProjectBar() {
               }`}
             >
               <span>{p.name}</span>
-              <span className="text-xs text-neutral-400">
-                {p.entries.length} {p.entries.length === 1 ? "entry" : "entries"}
+              <span className="inline-flex items-baseline gap-1 rounded bg-graphite px-1.5 py-0.5">
+                <span className="readout-digits text-xs font-semibold">{p.entries.length}</span>
+                <span className="text-[9px] uppercase tracking-wide text-neutral-400">
+                  {p.entries.length === 1 ? "entry" : "entries"}
+                </span>
               </span>
             </button>
           ))}

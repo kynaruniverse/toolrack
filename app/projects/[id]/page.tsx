@@ -95,7 +95,7 @@ export default function ProjectDetailPage() {
         {project.entries.slice().reverse().map((entry) => {
           const tool = getToolBySlug(entry.toolSlug);
           return (
-            <div key={entry.id} className="rounded-xl bg-white border border-concrete-dark shadow-sm p-4">
+            <div key={entry.id} className="docket rounded-xl border border-concrete-dark shadow-sm p-4">
               <div className="flex items-center justify-between mb-1">
                 <p className="font-semibold text-graphite">{entry.label}</p>
                 <button

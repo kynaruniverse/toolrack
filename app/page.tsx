@@ -18,11 +18,16 @@ export default function Home() {
             Fast, reliable tools — no sign-up, no clutter, built for the job.
           </p>
 
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-1.5 mt-6 rounded-full border border-white/25 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white transition hover:border-safety hover:text-safety"
-          >
-            Your projects →
+          <Link href="/projects" className="group inline-flex flex-col items-center mt-8">
+            <div className="docket-clip docket-clip-sm" />
+            <div className="docket rounded-md px-5 py-2.5 border border-concrete-dark shadow-sm">
+              <span className="block text-xs font-semibold uppercase tracking-widest text-graphite">
+                Your Projects
+              </span>
+              <span className="block text-[10px] text-neutral-500 mt-0.5 group-hover:text-steel transition">
+                Saved job dockets →
+              </span>
+            </div>
           </Link>
         </div>
       </div>
