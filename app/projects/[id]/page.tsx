@@ -3,14 +3,20 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Project, getProject, deleteEntry } from "@/lib/projects";
+import { Project, getProject, deleteEntry, renameProject } from "@/lib/projects";
 import { getToolBySlug } from "@/lib/racks";
+
+function capitalize(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 
 export default function ProjectDetailPage() {
   const params = useParams();
   const id = params.id as string;
   const [project, setProject] = useState<Project | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [renaming, setRenaming] = useState(false);
+  const [renameValue, setRenameValue] = useState("");
 
   const refresh = useCallback(() => {
     setProject(getProject(id) ?? null);
@@ -20,6 +26,18 @@ export default function ProjectDetailPage() {
   useEffect(() => {
     refresh();
   }, [refresh]);
+
+  const startRename = () => {
+    if (!project) return;
+    setRenameValue(project.name);
+    setRenaming(true);
+  };
+
+  const confirmRename = () => {
+    if (renameValue.trim()) renameProject(id, renameValue.trim());
+    setRenaming(false);
+    refresh();
+  };
 
   if (!loaded) return null;
   if (!project) {
@@ -33,7 +51,35 @@ export default function ProjectDetailPage() {
           <Link href="/projects" className="inline-block text-xs font-semibold uppercase tracking-wider text-safety mb-4">
             ← Your projects
           </Link>
-          <h1 className="font-display uppercase text-3xl tracking-tight text-white mb-2">{project.name}</h1>
+
+          {renaming ? (
+            <div className="flex gap-2 mb-2">
+              <input
+                autoFocus
+                value={renameValue}
+                onChange={(e) => setRenameValue(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && confirmRename()}
+                className="flex-1 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base bg-white focus:outline-none focus:border-steel"
+              />
+              <button
+                onClick={confirmRename}
+                className="rounded-lg bg-safety text-graphite font-semibold text-sm px-4 uppercase tracking-wide"
+              >
+                Save
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between mb-2">
+              <h1 className="font-display uppercase text-3xl tracking-tight text-white">{project.name}</h1>
+              <button
+                onClick={startRename}
+                className="text-xs font-semibold uppercase tracking-wider text-safety shrink-0 ml-3"
+              >
+                Rename
+              </button>
+            </div>
+          )}
+
           <p className="text-neutral-300 text-sm leading-relaxed">
             {project.entries.length} saved {project.entries.length === 1 ? "entry" : "entries"}
           </p>
@@ -63,6 +109,9 @@ export default function ProjectDetailPage() {
                 </button>
               </div>
               <p className="text-xs text-neutral-400 uppercase tracking-wide mb-2">
+                <span className="inline-block rounded-full bg-concrete px-2 py-0.5 mr-1.5 text-graphite">
+                  {capitalize(entry.toolType)}
+                </span>
                 {tool?.name ?? entry.toolSlug}
               </p>
               {tool && (

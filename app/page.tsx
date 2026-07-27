@@ -17,6 +17,13 @@ export default function Home() {
           <p className="text-neutral-300 leading-relaxed">
             Fast, reliable tools — no sign-up, no clutter, built for the job.
           </p>
+
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-1.5 mt-6 rounded-full border border-white/25 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white transition hover:border-safety hover:text-safety"
+          >
+            Your projects →
+          </Link>
         </div>
       </div>
 
@@ -25,11 +32,6 @@ export default function Home() {
 
       {/* Departments: one bin per trade */}
       <div className="max-w-md mx-auto px-6 pt-12 pb-16">
-        <div className="flex justify-end mb-2">
-          <Link href="/projects" className="text-xs font-semibold uppercase tracking-wide text-steel">
-            Your projects →
-          </Link>
-        </div>
         <p className="font-display uppercase tracking-[0.2em] text-graphite text-xs mb-6 text-center">
           Pick a department
         </p>

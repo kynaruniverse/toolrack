@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Project, getProjects, getOrCreateActiveProject, setActiveProjectId, createProject } from "@/lib/projects";
+import {
+  Project,
+  getProjects,
+  getOrCreateActiveProject,
+  setActiveProjectId,
+  createProject,
+} from "@/lib/projects";
 
 export default function ProjectBar() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -38,12 +44,21 @@ export default function ProjectBar() {
     <div className="max-w-md mx-auto px-6 -mt-2 mb-4 relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between rounded-lg border-2 border-concrete-dark bg-white px-3 py-2 text-sm"
+        aria-expanded={open}
+        className="w-full flex items-center justify-between rounded-lg border-2 border-safety-dark bg-white px-4 py-2.5 shadow-sm"
       >
-        <span className="text-neutral-500">
-          Saving to: <span className="font-semibold text-graphite">{active.name}</span>
+        <span className="text-left">
+          <span className="block text-[10px] uppercase tracking-widest text-neutral-400 font-semibold">
+            Saving to
+          </span>
+          <span className="block text-sm font-semibold text-graphite">{active.name}</span>
         </span>
-        <span className="text-steel">▾</span>
+        <span
+          className={`text-steel text-lg transition-transform ${open ? "rotate-180" : ""}`}
+          aria-hidden="true"
+        >
+          ▾
+        </span>
       </button>
 
       {open && (
@@ -52,22 +67,31 @@ export default function ProjectBar() {
             <button
               key={p.id}
               onClick={() => selectProject(p.id)}
-              className={`w-full text-left px-2 py-1.5 rounded text-sm ${
-                p.id === active.id ? "bg-concrete font-semibold" : ""
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-md text-sm text-left transition ${
+                p.id === active.id
+                  ? "bg-safety/20 border-2 border-safety-dark font-semibold text-graphite"
+                  : "border-2 border-transparent text-neutral-600 hover:bg-concrete"
               }`}
             >
-              {p.name} <span className="text-neutral-400">({p.entries.length})</span>
+              <span>{p.name}</span>
+              <span className="text-xs text-neutral-400">
+                {p.entries.length} {p.entries.length === 1 ? "entry" : "entries"}
+              </span>
             </button>
           ))}
-          <div className="flex gap-2 pt-2 border-t border-concrete-dark mt-1">
+
+          <div className="pt-2 mt-1 border-t border-concrete-dark space-y-2">
             <input
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               placeholder="New project name"
-              className="flex-1 rounded border border-concrete-dark px-2 py-1 text-sm"
+              className="w-full rounded-lg border-2 border-concrete-dark px-3 py-1.5 text-sm focus:outline-none focus:border-steel"
             />
-            <button onClick={addProject} className="px-3 py-1 rounded bg-safety text-graphite text-sm font-semibold">
-              Add
+            <button
+              onClick={addProject}
+              className="w-full rounded-lg border-2 border-dashed border-neutral-400 py-1.5 text-xs font-semibold uppercase tracking-wide text-neutral-600"
+            >
+              + New project
             </button>
           </div>
         </div>
