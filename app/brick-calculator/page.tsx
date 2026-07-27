@@ -1,6 +1,6 @@
 import BrickCalculator from "@/components/calculators/BrickCalculator";
 import ToolHeader from "@/components/ToolHeader";
-import { getToolBySlug } from "@/lib/racks";
+import { getToolBySlug, getRackForTool } from "@/lib/racks";
 import ToolJsonLd from "@/components/ToolJsonLd";
 import ToolRunner from "@/components/ToolRunner";
 

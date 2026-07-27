@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Project, getProject, deleteEntry } from "@/lib/projects";
 import { getToolBySlug } from "@/lib/racks";
@@ -12,14 +12,14 @@ export default function ProjectDetailPage() {
   const [project, setProject] = useState<Project | null>(null);
   const [loaded, setLoaded] = useState(false);
 
-  const refresh = () => {
+  const refresh = useCallback(() => {
     setProject(getProject(id) ?? null);
     setLoaded(true);
-  };
+  }, [id]);
 
   useEffect(() => {
     refresh();
-  }, [id]);
+  }, [refresh]);
 
   if (!loaded) return null;
   if (!project) {
