@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { racks, getRackBySlug } from "@/lib/racks";
 import ToolCard from "@/components/ToolCard";
+import ReadoutChip from "@/components/ReadoutChip";
 
 export function generateStaticParams() {
   return racks.filter((rack) => !rack.comingSoon).map((rack) => ({ slug: rack.slug }));
@@ -34,13 +35,21 @@ export default function DepartmentPage({
         <div className="max-w-md mx-auto">
           <Link
             href="/"
-            className="text-safety text-xs uppercase tracking-widest"
+            className="text-safety text-xs uppercase tracking-widest flex-shrink-0"
           >
             ← All departments
           </Link>
-          <h1 className="font-display uppercase text-3xl tracking-tight text-white mt-3">
-            {rack.name}
-          </h1>
+          <div className="flex items-center gap-3 mt-3">
+            <h1 className="font-display uppercase text-3xl tracking-tight text-white">
+              {rack.name}
+            </h1>
+            <div className="mt-1">
+              <ReadoutChip 
+                value={rack.tools.length} 
+                label={rack.tools.length === 1 ? "tool" : "tools"} 
+              />
+            </div>
+          </div>
         </div>
       </div>
 
