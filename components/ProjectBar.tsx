@@ -36,7 +36,7 @@ export default function ProjectBar() {
   if (!active) return null;
 
   return (
-    <div className="max-w-md mx-auto px-6 -mt-2 mb-4 relative">
+    <div className="max-w-md mx-auto px-6 py-4 relative">
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
