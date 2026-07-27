@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Rack } from "@/lib/types";
+import ReadoutChip from "@/components/ReadoutChip";
 
 // Live tags use a kraft-cardstock tan; coming-soon tags use a muted grey
 // cardstock. Set as CSS custom properties so app/globals.css only defines
@@ -38,9 +39,16 @@ export default function DepartmentBin({ rack }: { rack: Rack }) {
           </div>
         </div>
       </div>
-      <p className="text-[10px] text-neutral-500 text-center mt-2">
-        {rack.tagline}
-      </p>
+      <div className="flex justify-center mt-2">
+        {dim ? (
+          <ReadoutChip label="Coming soon" />
+        ) : (
+          <ReadoutChip
+            value={rack.tools.length}
+            label={rack.tools.length === 1 ? "tool" : "tools"}
+          />
+        )}
+      </div>
     </div>
   );
 

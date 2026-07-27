@@ -1,13 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  Project,
-  getProjects,
-  getOrCreateActiveProject,
-  setActiveProjectId,
-  createProject,
-} from "@/lib/projects";
+import { Project, getProjects, getOrCreateActiveProject, setActiveProjectId, createProject } from "@/lib/projects";
+import ReadoutChip from "@/components/ReadoutChip";
 
 export default function ProjectBar() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -41,12 +36,11 @@ export default function ProjectBar() {
   if (!active) return null;
 
   return (
-    <div className="max-w-md mx-auto px-6 -mt-2 mb-4 relative pt-3">
-      <div className="docket-clip" />
+    <div className="max-w-md mx-auto px-6 -mt-2 mb-4 relative">
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="docket w-full flex items-center justify-between rounded-lg border border-concrete-dark px-4 pt-4 pb-2.5 shadow-sm"
+        className="w-full flex items-center justify-between rounded-lg border-2 border-concrete-dark bg-white px-4 py-2.5 shadow-sm"
       >
         <span className="text-left">
           <span className="block text-[10px] uppercase tracking-widest text-neutral-400 font-semibold">
@@ -75,14 +69,8 @@ export default function ProjectBar() {
               }`}
             >
               <span>{p.name}</span>
-              <span className="inline-flex items-baseline gap-1 rounded bg-graphite px-1.5 py-0.5">
-                <span className="readout-digits text-xs font-semibold">{p.entries.length}</span>
-                <span className="text-[9px] uppercase tracking-wide text-neutral-400">
-                  {p.entries.length === 1 ? "entry" : "entries"}
-                </span>
-              </span>
+              <ReadoutChip value={p.entries.length} label={p.entries.length === 1 ? "entry" : "entries"} />
             </button>
-          ))}
 
           <div className="pt-2 mt-1 border-t border-concrete-dark space-y-2">
             <input

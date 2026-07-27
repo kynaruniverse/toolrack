@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Project, getProjects, createProject, renameProject } from "@/lib/projects";
+import ReadoutChip from "@/components/ReadoutChip";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -84,8 +85,7 @@ export default function ProjectsPage() {
         )}
 
         {projects.map((p) => (
-          <div key={p.id} className="docket relative rounded-xl border border-concrete-dark shadow-sm p-4 mt-3">
-            <div className="docket-clip docket-clip-sm" />
+          <div key={p.id} className="rounded-xl bg-white border border-concrete-dark shadow-sm p-4">
             {renamingId === p.id ? (
               <div className="flex gap-2">
                 <input
@@ -106,12 +106,7 @@ export default function ProjectsPage() {
               <div className="flex items-start justify-between gap-2">
                 <Link href={`/projects/${p.id}`} className="flex-1">
                   <p className="font-semibold text-graphite mb-1">{p.name}</p>
-                  <span className="inline-flex items-baseline gap-1 rounded bg-graphite px-2 py-0.5">
-                    <span className="readout-digits text-sm font-semibold">{p.entries.length}</span>
-                    <span className="text-[10px] uppercase tracking-wide text-neutral-400">
-                      {p.entries.length === 1 ? "entry" : "entries"}
-                    </span>
-                  </span>
+                  <ReadoutChip value={p.entries.length} label={p.entries.length === 1 ? "entry" : "entries"} />
                 </Link>
                 <button
                   onClick={() => startRename(p)}
