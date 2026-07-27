@@ -1,13 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Project, getProjects, createProject, renameProject } from "@/lib/projects";
 import ReadoutChip from "@/components/ReadoutChip";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [creating, setCreating] = useState(false);
   const [newName, setNewName] = useState("");
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState("");
@@ -18,106 +17,95 @@ export default function ProjectsPage() {
     refresh();
   }, []);
 
-  const handleCreate = () => {
+  const handleCreate = (e: React.FormEvent) => {
+    e.preventDefault();
     if (!newName.trim()) return;
     createProject(newName.trim());
     setNewName("");
-    setCreating(false);
     refresh();
   };
 
-  const startRename = (p: Project) => {
-    setRenamingId(p.id);
-    setRenameValue(p.name);
-  };
-
-  const confirmRename = (id: string) => {
-    if (renameValue.trim()) renameProject(id, renameValue.trim());
+  const handleRename = (id: string) => {
+    if (!renameValue.trim()) return;
+    renameProject(id, renameValue.trim());
     setRenamingId(null);
     refresh();
   };
 
   return (
     <main className="min-h-screen bg-concrete">
-      <div className="pegboard px-6 pt-8 pb-10">
+      <div className="pegboard px-6 pt-10 pb-8">
         <div className="max-w-md mx-auto">
-          <Link href="/" className="inline-block text-xs font-semibold uppercase tracking-wider text-safety mb-4">
+          <Link href="/" className="text-safety text-xs uppercase tracking-widest">
             ← All departments
           </Link>
-          <h1 className="font-display uppercase text-3xl tracking-tight text-white mb-2">Your Projects</h1>
-          <p className="text-neutral-300 text-sm leading-relaxed">
+          <h1 className="font-display uppercase text-3xl tracking-tight text-white mt-3">
+            Your Projects
+          </h1>
+          <p className="text-xs text-neutral-400 mt-1">
             Saved calculations, grouped by job. Stored on this device only.
           </p>
         </div>
       </div>
 
-      <div className="max-w-md mx-auto px-6 -mt-4 pb-14 space-y-3">
-        {creating ? (
-          <div className="rounded-xl bg-white border-2 border-safety-dark shadow-sm p-4 flex gap-2">
+      <div className="max-w-md mx-auto px-6 py-6 space-y-4">
+        {/* Clean, fully-contained New Project input block */}
+        <form onSubmit={handleCreate} className="bg-white rounded-xl border-2 border-dashed border-concrete-dark p-3 shadow-sm">
+          <div className="flex gap-2">
             <input
-              autoFocus
+              type="text"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleCreate()}
-              placeholder="Project name, e.g. Smith Patio Job"
-              className="flex-1 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel"
+              placeholder="New project name..."
+              className="flex-1 rounded-lg border border-concrete-dark px-3 py-2 text-sm focus:outline-none focus:border-graphite"
             />
             <button
-              onClick={handleCreate}
-              className="rounded-lg bg-safety text-graphite font-semibold text-sm px-4 uppercase tracking-wide"
+              type="submit"
+              className="bg-graphite text-white font-display uppercase tracking-wider text-xs px-4 py-2 rounded-lg hover:bg-black transition"
             >
-              Add
+              + Create
             </button>
           </div>
-        ) : (
-          <button
-            onClick={() => setCreating(true)}
-            className="w-full rounded-lg border-2 border-dashed border-neutral-400 py-3 text-sm font-semibold uppercase tracking-wide text-neutral-600"
-          >
-            + New project
-          </button>
-        )}
+        </form>
 
-        {projects.length === 0 && (
-          <p className="text-neutral-500 text-sm text-center py-8">
-            No projects yet — tap &quot;Save to project&quot; on any tool&apos;s result to start one, or add one above.
-          </p>
-        )}
-
-        {projects.map((p) => (
-          <div key={p.id} className="rounded-xl bg-white border border-concrete-dark shadow-sm p-4">
-            {renamingId === p.id ? (
-              <div className="flex gap-2">
-                <input
-                  autoFocus
-                  value={renameValue}
-                  onChange={(e) => setRenameValue(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && confirmRename(p.id)}
-                  className="flex-1 rounded-lg border-2 border-concrete-dark px-3 py-1.5 text-sm focus:outline-none focus:border-steel"
-                />
-                <button
-                  onClick={() => confirmRename(p.id)}
-                  className="rounded-lg bg-safety text-graphite font-semibold text-xs px-3 uppercase tracking-wide"
-                >
-                  Save
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-start justify-between gap-2">
-                <Link href={`/projects/${p.id}`} className="flex-1">
-                  <p className="font-semibold text-graphite mb-1">{p.name}</p>
-                  <ReadoutChip value={p.entries.length} label={p.entries.length === 1 ? "entry" : "entries"} />
-                </Link>
-                <button
-                  onClick={() => startRename(p)}
-                  className="text-xs font-semibold uppercase tracking-wide text-steel shrink-0"
-                >
-                  Rename
-                </button>
-              </div>
-            )}
-          </div>
-        ))}
+        {/* Projects List */}
+        <div className="space-y-3">
+          {projects.map((p) => (
+            <div key={p.id} className="rounded-xl bg-white border-2 border-concrete-dark shadow-sm p-4">
+              {renamingId === p.id ? (
+                <div className="flex items-center gap-2">
+                  <input
+                    value={renameValue}
+                    onChange={(e) => setRenameValue(e.target.value)}
+                    className="flex-1 border border-concrete-dark rounded px-2 py-1 text-sm"
+                  />
+                  <button
+                    onClick={() => handleRename(p.id)}
+                    className="text-xs font-semibold uppercase text-safety-dark"
+                  >
+                    Save
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between">
+                  <Link href={`/projects/${p.id}`} className="flex-1">
+                    <p className="font-semibold text-graphite mb-1.5">{p.name}</p>
+                    <ReadoutChip value={p.entries.length} label={p.entries.length === 1 ? "entry" : "entries"} />
+                  </Link>
+                  <button
+                    onClick={() => {
+                      setRenamingId(p.id);
+                      setRenameValue(p.name);
+                    }}
+                    className="text-xs font-semibold text-neutral-400 hover:text-graphite uppercase tracking-wide"
+                  >
+                    Rename
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   );

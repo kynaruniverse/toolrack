@@ -7,23 +7,28 @@ export default function DepartmentBin({ rack }: { rack: Rack }) {
 
   const content = (
     <div
-      className={`relative flex h-full flex-col items-center justify-between rounded-xl border-2 p-5 transition-all ${
+      className={`relative flex h-full flex-col items-center justify-between rounded-xl border-2 p-5 transition-all shadow-sm overflow-hidden ${
         dim
-          ? "border-concrete-dark bg-concrete/40 opacity-70"
-          : "border-concrete-dark bg-white group-hover:-translate-y-0.5 group-hover:border-graphite group-hover:shadow-md"
+          ? "border-concrete-dark bg-concrete-dark/20 opacity-50"
+          : "border-graphite bg-graphite text-white hover:-translate-y-1 hover:shadow-xl hover:border-safety"
       }`}
     >
-      <div className="flex flex-col items-center justify-center mb-5 mt-1">
+      {/* Heavy-duty yellow safety stripe across top for live tools */}
+      {!dim && (
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-safety" />
+      )}
+
+      <div className="flex flex-col items-center justify-center mb-6 mt-2">
         <span
-          className={`font-display text-4xl font-bold uppercase tracking-tight ${
-            dim ? "text-neutral-400" : "text-graphite"
+          className={`font-display text-4xl font-extrabold uppercase tracking-tight ${
+            dim ? "text-neutral-400" : "text-white"
           }`}
         >
           {rack.code}
         </span>
         <span
-          className={`font-display text-[10px] uppercase tracking-widest mt-2 text-center ${
-            dim ? "text-neutral-400" : "text-neutral-500"
+          className={`font-display text-[10px] uppercase tracking-widest mt-2 text-center font-bold ${
+            dim ? "text-neutral-400" : "text-neutral-300"
           }`}
         >
           {rack.name}
