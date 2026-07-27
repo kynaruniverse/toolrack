@@ -2,6 +2,7 @@ import FoodCostCalculator from "@/components/calculators/FoodCostCalculator";
 import ToolHeader from "@/components/ToolHeader";
 import { getToolBySlug, getRackForTool } from "@/lib/racks";
 import ToolJsonLd from "@/components/ToolJsonLd";
+import ToolRunner from "@/components/ToolRunner";
 
 const tool = getToolBySlug("food-cost-calculator")!;
 const rack = getRackForTool(tool.slug)!;
@@ -22,7 +23,9 @@ export default function FoodCostCalculatorPage() {
       <ToolJsonLd tool={tool} />
       <ToolHeader         title={tool.name}         subtitle={tool.subtitle}         backHref={`/departments/${rack.slug}`}         backLabel={rack.name}       />
       <div className="px-6 -mt-4 pb-14">
-        <FoodCostCalculator />
+        <ToolRunner tool={tool}>
+          <FoodCostCalculator />
+        </ToolRunner>
       </div>
     </main>
   );

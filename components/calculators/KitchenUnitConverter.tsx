@@ -14,11 +14,29 @@ const INGREDIENT_OPTIONS = Object.entries(INGREDIENT_DENSITIES) as [
   { label: string; gramsPerMl: number }
 ][];
 
-export default function KitchenUnitConverter() {
-  const [value, setValue] = useState("1");
-  const [fromUnit, setFromUnit] = useState<KitchenUnit>("cup");
-  const [toUnit, setToUnit] = useState<KitchenUnit>("g");
-  const [ingredient, setIngredient] = useState<IngredientKey>("all-purpose-flour");
+export interface KitchenConverterFormState {
+  value: string;
+  fromUnit: KitchenUnit;
+  toUnit: KitchenUnit;
+  ingredient: IngredientKey;
+}
+
+export default function KitchenUnitConverter({
+  initialInput,
+  onSave,
+}: {
+  initialInput?: Partial<KitchenConverterFormState>;
+  onSave?: (entry: {
+    input: KitchenConverterFormState;
+    result: { value: number; unit: string };
+  }) => void;
+}) {
+  const [value, setValue] = useState(initialInput?.value ?? "1");
+  const [fromUnit, setFromUnit] = useState<KitchenUnit>(initialInput?.fromUnit ?? "cup");
+  const [toUnit, setToUnit] = useState<KitchenUnit>(initialInput?.toUnit ?? "g");
+  const [ingredient, setIngredient] = useState<IngredientKey>(
+    initialInput?.ingredient ?? "all-purpose-flour"
+  );
 
   const fromMeta = UNIT_META.find((u) => u.key === fromUnit)!;
   const toMeta = UNIT_META.find((u) => u.key === toUnit)!;
@@ -135,6 +153,20 @@ export default function KitchenUnitConverter() {
             {result.toLocaleString(undefined, { maximumFractionDigits: 3 })}
           </p>
           <p className="text-sm text-neutral-300 mt-1">{toMeta.label}</p>
+
+          {onSave && (
+            <button
+              onClick={() =>
+                onSave({
+                  input: { value, fromUnit, toUnit, ingredient },
+                  result: { value: result, unit: toMeta.label },
+                })
+              }
+              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+            >
+              Save to project
+            </button>
+          )}
         </div>
       )}
     </div>

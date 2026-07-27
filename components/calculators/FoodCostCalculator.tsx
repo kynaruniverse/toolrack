@@ -1,12 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { calculateFoodCostPercent } from "@/lib/tools/foodCostPercent";
+import { calculateFoodCostPercent, FoodCostResult } from "@/lib/tools/foodCostPercent";
 
-export default function FoodCostCalculator() {
-  const [ingredientCost, setIngredientCost] = useState("");
-  const [sellingPrice, setSellingPrice] = useState("");
-  const [targetPercent, setTargetPercent] = useState(30);
+export interface FoodCostFormState {
+  ingredientCost: string;
+  sellingPrice: string;
+  targetPercent: number;
+}
+
+export default function FoodCostCalculator({
+  initialInput,
+  onSave,
+}: {
+  initialInput?: Partial<FoodCostFormState>;
+  onSave?: (entry: { input: FoodCostFormState; result: FoodCostResult }) => void;
+}) {
+  const [ingredientCost, setIngredientCost] = useState(initialInput?.ingredientCost ?? "");
+  const [sellingPrice, setSellingPrice] = useState(initialInput?.sellingPrice ?? "");
+  const [targetPercent, setTargetPercent] = useState(initialInput?.targetPercent ?? 30);
 
   const cost = parseFloat(ingredientCost) || 0;
   const price = parseFloat(sellingPrice) || 0;
@@ -106,6 +118,20 @@ export default function FoodCostCalculator() {
               £{result.suggestedSellingPrice?.toFixed(2)}
             </span>
           </div>
+
+          {onSave && (
+            <button
+              onClick={() =>
+                onSave({
+                  input: { ingredientCost, sellingPrice, targetPercent },
+                  result,
+                })
+              }
+              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+            >
+              Save to project
+            </button>
+          )}
         </div>
       )}
     </div>

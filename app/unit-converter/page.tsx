@@ -2,6 +2,7 @@ import UnitConverter from "@/components/calculators/UnitConverter";
 import ToolHeader from "@/components/ToolHeader";
 import { getToolBySlug, getRackForTool } from "@/lib/racks";
 import ToolJsonLd from "@/components/ToolJsonLd";
+import ToolRunner from "@/components/ToolRunner";
 
 const tool = getToolBySlug("unit-converter")!;
 const rack = getRackForTool(tool.slug)!;
@@ -22,7 +23,9 @@ export default function UnitConverterPage() {
       <ToolJsonLd tool={tool} />
       <ToolHeader         title={tool.name}         subtitle={tool.subtitle}         backHref={`/departments/${rack.slug}`}         backLabel={rack.name}       />
       <div className="px-6 -mt-4 pb-14">
-        <UnitConverter />
+        <ToolRunner tool={tool}>
+          <UnitConverter />
+        </ToolRunner>
       </div>
     </main>
   );

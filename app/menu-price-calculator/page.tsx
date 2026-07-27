@@ -2,6 +2,7 @@ import MenuPriceCalculator from "@/components/calculators/MenuPriceCalculator";
 import ToolHeader from "@/components/ToolHeader";
 import { getToolBySlug, getRackForTool } from "@/lib/racks";
 import ToolJsonLd from "@/components/ToolJsonLd";
+import ToolRunner from "@/components/ToolRunner";
 
 const tool = getToolBySlug("menu-price-calculator")!;
 const rack = getRackForTool(tool.slug)!;
@@ -22,7 +23,9 @@ export default function MenuPriceCalculatorPage() {
       <ToolJsonLd tool={tool} />
       <ToolHeader         title={tool.name}         subtitle={tool.subtitle}         backHref={`/departments/${rack.slug}`}         backLabel={rack.name}       />
       <div className="px-6 -mt-4 pb-14">
-        <MenuPriceCalculator />
+        <ToolRunner tool={tool}>
+          <MenuPriceCalculator />
+        </ToolRunner>
       </div>
     </main>
   );

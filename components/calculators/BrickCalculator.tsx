@@ -1,24 +1,47 @@
 "use client";
 
 import { useState } from "react";
-import { calculateBrick, Unit, MORTAR_MIX_PRESETS } from "@/lib/calculations";
+import { calculateBrick, Unit, MORTAR_MIX_PRESETS, BrickResult } from "@/lib/calculations";
 
 const UNIT_PRESETS = {
   brick: { label: "Brick", lengthMm: 215, heightMm: 65 },
   block: { label: "Block (CMU)", lengthMm: 440, heightMm: 215 },
 };
 
-export default function BrickCalculator() {
-  const [unit, setUnit] = useState<Unit>("metric");
-  const [unitType, setUnitType] = useState<"brick" | "block">("brick");
-  const [wallLength, setWallLength] = useState("");
-  const [wallHeight, setWallHeight] = useState("");
-  const [brickLengthMm, setBrickLengthMm] = useState(String(UNIT_PRESETS.brick.lengthMm));
-  const [brickHeightMm, setBrickHeightMm] = useState(String(UNIT_PRESETS.brick.heightMm));
-  const [mortarJointMm, setMortarJointMm] = useState("10");
-  const [mortarBagSizeKg, setMortarBagSizeKg] = useState<20 | 25>(25);
-  const [mortarMixIndex, setMortarMixIndex] = useState(0);
-  const [wastePercent, setWastePercent] = useState(10);
+export interface BrickFormState {
+  unit: Unit;
+  unitType: "brick" | "block";
+  wallLength: string;
+  wallHeight: string;
+  brickLengthMm: string;
+  brickHeightMm: string;
+  mortarJointMm: string;
+  mortarBagSizeKg: 20 | 25;
+  mortarMixIndex: number;
+  wastePercent: number;
+}
+
+export default function BrickCalculator({
+  initialInput,
+  onSave,
+}: {
+  initialInput?: Partial<BrickFormState>;
+  onSave?: (entry: { input: BrickFormState; result: BrickResult }) => void;
+}) {
+  const [unit, setUnit] = useState<Unit>(initialInput?.unit ?? "metric");
+  const [unitType, setUnitType] = useState<"brick" | "block">(initialInput?.unitType ?? "brick");
+  const [wallLength, setWallLength] = useState(initialInput?.wallLength ?? "");
+  const [wallHeight, setWallHeight] = useState(initialInput?.wallHeight ?? "");
+  const [brickLengthMm, setBrickLengthMm] = useState(
+    initialInput?.brickLengthMm ?? String(UNIT_PRESETS.brick.lengthMm)
+  );
+  const [brickHeightMm, setBrickHeightMm] = useState(
+    initialInput?.brickHeightMm ?? String(UNIT_PRESETS.brick.heightMm)
+  );
+  const [mortarJointMm, setMortarJointMm] = useState(initialInput?.mortarJointMm ?? "10");
+  const [mortarBagSizeKg, setMortarBagSizeKg] = useState<20 | 25>(initialInput?.mortarBagSizeKg ?? 25);
+  const [mortarMixIndex, setMortarMixIndex] = useState(initialInput?.mortarMixIndex ?? 0);
+  const [wastePercent, setWastePercent] = useState(initialInput?.wastePercent ?? 10);
 
   const selectUnitType = (type: "brick" | "block") => {
     setUnitType(type);
@@ -197,6 +220,31 @@ export default function BrickCalculator() {
               </p>
             )}
           </div>
+
+          {onSave && (
+            <button
+              onClick={() =>
+                onSave({
+                  input: {
+                    unit,
+                    unitType,
+                    wallLength,
+                    wallHeight,
+                    brickLengthMm,
+                    brickHeightMm,
+                    mortarJointMm,
+                    mortarBagSizeKg,
+                    mortarMixIndex,
+                    wastePercent,
+                  },
+                  result,
+                })
+              }
+              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+            >
+              Save to project
+            </button>
+          )}
         </div>
       )}
     </div>

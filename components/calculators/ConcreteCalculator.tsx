@@ -5,18 +5,44 @@ import {
   calculateConcrete,
   Unit,
   CONCRETE_MIX_PRESETS,
+  ConcreteResult,
 } from "@/lib/calculations";
 
-export default function ConcreteCalculator() {
-  const [unit, setUnit] = useState<Unit>("metric");
-  const [length, setLength] = useState("");
-  const [width, setWidth] = useState("");
-  const [depth, setDepth] = useState(""); // mm
-  const [wastePercent, setWastePercent] = useState(10);
-  const [method, setMethod] = useState<"premix" | "traditional">("premix");
-  const [bagSizeKg, setBagSizeKg] = useState<20 | 25>(25);
-  const [pricePerBag, setPricePerBag] = useState("");
-  const [mixIndex, setMixIndex] = useState(0);
+// The shape of this tool's form state, as saved into a Project entry's
+// `input` field. Kept separate from ConcreteInput (lib/tools/concrete.ts)
+// because that type holds parsed numbers and a resolved mix ratio — this
+// holds exactly what the form itself tracks, so a saved entry can hydrate
+// the form back to the state the user actually left it in.
+export interface ConcreteFormState {
+  unit: Unit;
+  length: string;
+  width: string;
+  depth: string;
+  wastePercent: number;
+  method: "premix" | "traditional";
+  bagSizeKg: 20 | 25;
+  pricePerBag: string;
+  mixIndex: number;
+}
+
+export default function ConcreteCalculator({
+  initialInput,
+  onSave,
+}: {
+  initialInput?: Partial<ConcreteFormState>;
+  onSave?: (entry: { input: ConcreteFormState; result: ConcreteResult }) => void;
+}) {
+  const [unit, setUnit] = useState<Unit>(initialInput?.unit ?? "metric");
+  const [length, setLength] = useState(initialInput?.length ?? "");
+  const [width, setWidth] = useState(initialInput?.width ?? "");
+  const [depth, setDepth] = useState(initialInput?.depth ?? ""); // mm
+  const [wastePercent, setWastePercent] = useState(initialInput?.wastePercent ?? 10);
+  const [method, setMethod] = useState<"premix" | "traditional">(
+    initialInput?.method ?? "premix"
+  );
+  const [bagSizeKg, setBagSizeKg] = useState<20 | 25>(initialInput?.bagSizeKg ?? 25);
+  const [pricePerBag, setPricePerBag] = useState(initialInput?.pricePerBag ?? "");
+  const [mixIndex, setMixIndex] = useState(initialInput?.mixIndex ?? 0);
 
   const l = parseFloat(length);
   const w = parseFloat(width);
@@ -221,6 +247,30 @@ export default function ConcreteCalculator() {
                 </p>
               )}
             </div>
+          )}
+
+          {onSave && (
+            <button
+              onClick={() =>
+                onSave({
+                  input: {
+                    unit,
+                    length,
+                    width,
+                    depth,
+                    wastePercent,
+                    method,
+                    bagSizeKg,
+                    pricePerBag,
+                    mixIndex,
+                  },
+                  result,
+                })
+              }
+              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+            >
+              Save to project
+            </button>
           )}
         </div>
       )}

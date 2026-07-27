@@ -1,14 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { calculateExcavation, Unit } from "@/lib/calculations";
+import { calculateExcavation, Unit, ExcavationResult } from "@/lib/calculations";
 
-export default function ExcavationCalculator() {
-  const [unit, setUnit] = useState<Unit>("metric");
-  const [length, setLength] = useState("");
-  const [width, setWidth] = useState("");
-  const [depth, setDepth] = useState("");
-  const [wastePercent, setWastePercent] = useState(5);
+export interface ExcavationFormState {
+  unit: Unit;
+  length: string;
+  width: string;
+  depth: string;
+  wastePercent: number;
+}
+
+export default function ExcavationCalculator({
+  initialInput,
+  onSave,
+}: {
+  initialInput?: Partial<ExcavationFormState>;
+  onSave?: (entry: { input: ExcavationFormState; result: ExcavationResult }) => void;
+}) {
+  const [unit, setUnit] = useState<Unit>(initialInput?.unit ?? "metric");
+  const [length, setLength] = useState(initialInput?.length ?? "");
+  const [width, setWidth] = useState(initialInput?.width ?? "");
+  const [depth, setDepth] = useState(initialInput?.depth ?? "");
+  const [wastePercent, setWastePercent] = useState(initialInput?.wastePercent ?? 5);
 
   const l = parseFloat(length);
   const w = parseFloat(width);
@@ -80,6 +94,20 @@ export default function ExcavationCalculator() {
             </span>{" "}
             (8-yard) to clear it.
           </p>
+
+          {onSave && (
+            <button
+              onClick={() =>
+                onSave({
+                  input: { unit, length, width, depth, wastePercent },
+                  result,
+                })
+              }
+              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+            >
+              Save to project
+            </button>
+          )}
         </div>
       )}
     </div>

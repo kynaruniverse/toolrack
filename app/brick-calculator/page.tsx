@@ -1,7 +1,8 @@
 import BrickCalculator from "@/components/calculators/BrickCalculator";
 import ToolHeader from "@/components/ToolHeader";
-import { getToolBySlug, getRackForTool } from "@/lib/racks";
+import { getToolBySlug } from "@/lib/racks";
 import ToolJsonLd from "@/components/ToolJsonLd";
+import ToolRunner from "@/components/ToolRunner";
 
 const tool = getToolBySlug("brick-calculator")!;
 const rack = getRackForTool(tool.slug)!;
@@ -22,7 +23,9 @@ export default function BrickCalculatorPage() {
       <ToolJsonLd tool={tool} />
       <ToolHeader         title={tool.name}         subtitle={tool.subtitle}         backHref={`/departments/${rack.slug}`}         backLabel={rack.name}       />
       <div className="px-6 -mt-4 pb-14">
-        <BrickCalculator />
+        <ToolRunner tool={tool}>
+          <BrickCalculator />
+        </ToolRunner>
       </div>
     </main>
   );

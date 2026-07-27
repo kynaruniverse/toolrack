@@ -1,17 +1,38 @@
 "use client";
 
 import { useState } from "react";
-import { calculateMaterialCost, MaterialLineItem } from "@/lib/calculations";
+import { calculateMaterialCost, MaterialLineItem, MaterialCostResult } from "@/lib/calculations";
 
 let nextId = 1;
 
-export default function MaterialCostCalculator() {
-  const [items, setItems] = useState<MaterialLineItem[]>([
-    { id: "item-0", name: "", quantity: 0, unitPrice: 0 },
-  ]);
-  const [labourHours, setLabourHours] = useState("");
-  const [labourRate, setLabourRate] = useState("");
-  const [marginPercent, setMarginPercent] = useState(15);
+export interface MaterialCostFormState {
+  items: MaterialLineItem[];
+  labourHours: string;
+  labourRate: string;
+  marginPercent: number;
+}
+
+export default function MaterialCostCalculator({
+  initialInput,
+  onSave,
+}: {
+  initialInput?: Partial<MaterialCostFormState>;
+  onSave?: (entry: { input: MaterialCostFormState; result: MaterialCostResult }) => void;
+}) {
+  const [items, setItems] = useState<MaterialLineItem[]>(() => {
+    if (initialInput?.items?.length) {
+      const maxIndex = Math.max(
+        0,
+        ...initialInput.items.map((i) => parseInt(i.id.replace("item-", ""), 10) || 0)
+      );
+      nextId = Math.max(nextId, maxIndex + 1);
+      return initialInput.items;
+    }
+    return [{ id: "item-0", name: "", quantity: 0, unitPrice: 0 }];
+  });
+  const [labourHours, setLabourHours] = useState(initialInput?.labourHours ?? "");
+  const [labourRate, setLabourRate] = useState(initialInput?.labourRate ?? "");
+  const [marginPercent, setMarginPercent] = useState(initialInput?.marginPercent ?? 15);
 
   const updateItem = (id: string, field: keyof MaterialLineItem, value: string) => {
     setItems((prev) =>
@@ -146,6 +167,20 @@ export default function MaterialCostCalculator() {
               £{result.finalQuote.toFixed(2)}
             </span>
           </div>
+
+          {onSave && (
+            <button
+              onClick={() =>
+                onSave({
+                  input: { items, labourHours, labourRate, marginPercent },
+                  result,
+                })
+              }
+              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+            >
+              Save to project
+            </button>
+          )}
         </div>
       )}
     </div>

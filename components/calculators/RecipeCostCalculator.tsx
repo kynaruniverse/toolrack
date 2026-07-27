@@ -1,15 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import { calculateRecipeCost, RecipeIngredient } from "@/lib/tools/recipeCost";
+import { calculateRecipeCost, RecipeIngredient, RecipeCostResult } from "@/lib/tools/recipeCost";
 
 let nextId = 1;
 
-export default function RecipeCostCalculator() {
-  const [ingredients, setIngredients] = useState<RecipeIngredient[]>([
-    { id: "ing-0", name: "", quantity: 0, unitCost: 0 },
-  ]);
-  const [portions, setPortions] = useState("");
+export interface RecipeCostFormState {
+  ingredients: RecipeIngredient[];
+  portions: string;
+}
+
+export default function RecipeCostCalculator({
+  initialInput,
+  onSave,
+}: {
+  initialInput?: Partial<RecipeCostFormState>;
+  onSave?: (entry: { input: RecipeCostFormState; result: RecipeCostResult }) => void;
+}) {
+  const [ingredients, setIngredients] = useState<RecipeIngredient[]>(() => {
+    if (initialInput?.ingredients?.length) {
+      const maxIndex = Math.max(
+        0,
+        ...initialInput.ingredients.map((i) => parseInt(i.id.replace("ing-", ""), 10) || 0)
+      );
+      nextId = Math.max(nextId, maxIndex + 1);
+      return initialInput.ingredients;
+    }
+    return [{ id: "ing-0", name: "", quantity: 0, unitCost: 0 }];
+  });
+  const [portions, setPortions] = useState(initialInput?.portions ?? "");
 
   const updateIngredient = (
     id: string,
@@ -150,6 +169,15 @@ export default function RecipeCostCalculator() {
               £{result.costPerPortion.toFixed(2)}
             </span>
           </div>
+
+          {onSave && (
+            <button
+              onClick={() => onSave({ input: { ingredients, portions }, result })}
+              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+            >
+              Save to project
+            </button>
+          )}
         </div>
       )}
     </div>

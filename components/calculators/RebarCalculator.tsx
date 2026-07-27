@@ -1,14 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { calculateRebarWeight } from "@/lib/calculations";
+import { calculateRebarWeight, RebarResult } from "@/lib/calculations";
 
 const STANDARD_DIAMETERS = [6, 8, 10, 12, 16, 20, 25, 32];
 
-export default function RebarCalculator() {
-  const [diameterMm, setDiameterMm] = useState(12);
-  const [barLengthM, setBarLengthM] = useState("6");
-  const [numberOfBars, setNumberOfBars] = useState("1");
+export interface RebarFormState {
+  diameterMm: number;
+  barLengthM: string;
+  numberOfBars: string;
+}
+
+export default function RebarCalculator({
+  initialInput,
+  onSave,
+}: {
+  initialInput?: Partial<RebarFormState>;
+  onSave?: (entry: { input: RebarFormState; result: RebarResult }) => void;
+}) {
+  const [diameterMm, setDiameterMm] = useState(initialInput?.diameterMm ?? 12);
+  const [barLengthM, setBarLengthM] = useState(initialInput?.barLengthM ?? "6");
+  const [numberOfBars, setNumberOfBars] = useState(initialInput?.numberOfBars ?? "1");
 
   const bl = parseFloat(barLengthM);
   const nb = parseFloat(numberOfBars);
@@ -67,6 +79,20 @@ export default function RebarCalculator() {
             </span>
             .
           </p>
+
+          {onSave && (
+            <button
+              onClick={() =>
+                onSave({
+                  input: { diameterMm, barLengthM, numberOfBars },
+                  result,
+                })
+              }
+              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+            >
+              Save to project
+            </button>
+          )}
         </div>
       )}
 

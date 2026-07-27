@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { racks } from "@/lib/racks";
 import DepartmentBin from "@/components/DepartmentBin";
 
@@ -24,6 +25,11 @@ export default function Home() {
 
       {/* Departments: one bin per trade */}
       <div className="max-w-md mx-auto px-6 pt-12 pb-16">
+        <div className="flex justify-end mb-2">
+          <Link href="/projects" className="text-xs font-semibold uppercase tracking-wide text-steel">
+            Your projects →
+          </Link>
+        </div>
         <p className="font-display uppercase tracking-[0.2em] text-graphite text-xs mb-6 text-center">
           Pick a department
         </p>

@@ -10,11 +10,27 @@ const CATEGORIES: { key: ConversionCategory; label: string }[] = [
   { key: "weight", label: "Weight" },
 ];
 
-export default function UnitConverter() {
-  const [category, setCategory] = useState<ConversionCategory>("length");
-  const [value, setValue] = useState("1");
-  const [fromKey, setFromKey] = useState(CONVERSION_UNITS.length[2].key); // m
-  const [toKey, setToKey] = useState(CONVERSION_UNITS.length[4].key); // ft
+export interface UnitConverterFormState {
+  category: ConversionCategory;
+  value: string;
+  fromKey: string;
+  toKey: string;
+}
+
+export default function UnitConverter({
+  initialInput,
+  onSave,
+}: {
+  initialInput?: Partial<UnitConverterFormState>;
+  onSave?: (entry: {
+    input: UnitConverterFormState;
+    result: { value: number; unit: string };
+  }) => void;
+}) {
+  const [category, setCategory] = useState<ConversionCategory>(initialInput?.category ?? "length");
+  const [value, setValue] = useState(initialInput?.value ?? "1");
+  const [fromKey, setFromKey] = useState(initialInput?.fromKey ?? CONVERSION_UNITS.length[2].key); // m
+  const [toKey, setToKey] = useState(initialInput?.toKey ?? CONVERSION_UNITS.length[4].key); // ft
 
   const units = CONVERSION_UNITS[category];
   const v = parseFloat(value);
@@ -104,6 +120,23 @@ export default function UnitConverter() {
           <p className="text-sm text-neutral-300 mt-1">
             {units.find((u) => u.key === toKey)?.label}
           </p>
+
+          {onSave && (
+            <button
+              onClick={() =>
+                onSave({
+                  input: { category, value, fromKey, toKey },
+                  result: {
+                    value: result,
+                    unit: units.find((u) => u.key === toKey)?.label ?? "",
+                  },
+                })
+              }
+              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+            >
+              Save to project
+            </button>
+          )}
         </div>
       )}
     </div>

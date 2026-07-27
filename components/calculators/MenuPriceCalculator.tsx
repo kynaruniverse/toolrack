@@ -1,12 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { calculateMenuPrice, PricingMethod } from "@/lib/tools/menuPrice";
+import { calculateMenuPrice, PricingMethod, MenuPriceResult } from "@/lib/tools/menuPrice";
 
-export default function MenuPriceCalculator() {
-  const [cost, setCost] = useState("");
-  const [method, setMethod] = useState<PricingMethod>("markup");
-  const [percent, setPercent] = useState(50);
+export interface MenuPriceFormState {
+  cost: string;
+  method: PricingMethod;
+  percent: number;
+}
+
+export default function MenuPriceCalculator({
+  initialInput,
+  onSave,
+}: {
+  initialInput?: Partial<MenuPriceFormState>;
+  onSave?: (entry: { input: MenuPriceFormState; result: MenuPriceResult }) => void;
+}) {
+  const [cost, setCost] = useState(initialInput?.cost ?? "");
+  const [method, setMethod] = useState<PricingMethod>(initialInput?.method ?? "markup");
+  const [percent, setPercent] = useState(initialInput?.percent ?? 50);
 
   const c = parseFloat(cost) || 0;
   const valid = c > 0;
@@ -101,6 +113,15 @@ export default function MenuPriceCalculator() {
               £{result.price.toFixed(2)}
             </span>
           </div>
+
+          {onSave && (
+            <button
+              onClick={() => onSave({ input: { cost, method, percent }, result })}
+              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+            >
+              Save to project
+            </button>
+          )}
         </div>
       )}
     </div>
