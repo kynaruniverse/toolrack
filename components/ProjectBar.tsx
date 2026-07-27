@@ -71,6 +71,7 @@ export default function ProjectBar() {
               <span>{p.name}</span>
               <ReadoutChip value={p.entries.length} label={p.entries.length === 1 ? "entry" : "entries"} />
             </button>
+          ))}
 
           <div className="pt-2 mt-1 border-t border-concrete-dark space-y-2">
             <input
