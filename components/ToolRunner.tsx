@@ -1,12 +1,12 @@
 "use client";
 
-import { cloneElement, isValidElement, ReactElement, ReactNode } from "react";
+import { cloneElement, isValidElement, ReactElement, ReactNode, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { ToolMeta } from "@/lib/types";
 import { getEntry, getOrCreateActiveProject, addEntryToProject } from "@/lib/projects";
 import ProjectBar from "@/components/ProjectBar";
 
-export default function ToolRunner({ tool, children }: { tool: ToolMeta; children: ReactNode }) {
+function ToolRunnerInner({ tool, children }: { tool: ToolMeta; children: ReactNode }) {
   const searchParams = useSearchParams();
   const projectId = searchParams.get("projectId");
   const entryId = searchParams.get("entryId");
@@ -33,5 +33,13 @@ export default function ToolRunner({ tool, children }: { tool: ToolMeta; childre
         onSave: handleSave,
       })}
     </>
+  );
+}
+
+export default function ToolRunner(props: { tool: ToolMeta; children: ReactNode }) {
+  return (
+    <Suspense fallback={props.children}>
+      <ToolRunnerInner {...props} />
+    </Suspense>
   );
 }
