@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Project, getProject, deleteEntry, renameProject, summarizeEntry } from "@/lib/projects";
+import { Project, getProject, deleteEntry, renameProject } from "@/lib/projects";
 import { getToolBySlug } from "@/lib/racks";
 import { hapticTap } from "@/lib/haptics";
 
@@ -60,7 +60,7 @@ export default function ProjectDetailPage() {
                 value={renameValue}
                 onChange={(e) => setRenameValue(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && confirmRename()}
-                className="flex-1 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base bg-white focus:outline-none focus:border-steel"
+                className="flex-1 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base bg-white focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
               />
               <button
                 onClick={() => {
@@ -116,11 +116,17 @@ export default function ProjectDetailPage() {
                   Remove
                 </button>
               </div>
-              <p className="text-xs text-neutral-400 uppercase tracking-wide mb-2">
-                <span className="inline-block rounded-full bg-concrete px-2 py-0.5 mr-1.5 text-graphite">
+              <p className="text-xs text-neutral-400 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+                <span className="inline-block rounded-full bg-concrete px-2 py-0.5 text-graphite">
                   {capitalize(entry.toolType)}
                 </span>
-                {summarizeEntry(entry) || (tool?.name ?? entry.toolSlug)}
+                <span>
+                  Saved{" "}
+                  {new Date(entry.createdAt).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
               </p>
               {tool && (
                 <Link
