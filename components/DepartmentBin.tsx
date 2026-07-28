@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Rack } from "@/lib/types";
 import { hapticTap } from "@/lib/haptics";
