@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { calculateRebarWeight, RebarResult } from "@/lib/calculations";
+import { hapticTap } from "@/lib/haptics";
 
 const STANDARD_DIAMETERS = [6, 8, 10, 12, 16, 20, 25, 32];
 
@@ -40,10 +41,13 @@ export default function RebarCalculator({
           {STANDARD_DIAMETERS.map((d) => (
             <button
               key={d}
-              onClick={() => setDiameterMm(d)}
+              onClick={() => {
+                hapticTap();
+                setDiameterMm(d);
+              }}
               role="radio"
               aria-checked={diameterMm === d}
-              className={`py-2 rounded-lg border-2 text-sm font-semibold transition ${
+              className={`tactile py-2 rounded-lg border-2 text-sm font-semibold transition ${
                 diameterMm === d
                   ? "border-safety-dark bg-safety text-graphite"
                   : "border-concrete-dark text-neutral-600"
@@ -82,13 +86,14 @@ export default function RebarCalculator({
 
           {onSave && (
             <button
-              onClick={() =>
+              onClick={() => {
+                hapticTap();
                 onSave({
                   input: { diameterMm, barLengthM, numberOfBars },
                   result,
-                })
-              }
-              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+                });
+              }}
+              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

@@ -7,6 +7,7 @@ import {
   CONCRETE_MIX_PRESETS,
   ConcreteResult,
 } from "@/lib/calculations";
+import { hapticTap } from "@/lib/haptics";
 
 // The shape of this tool's form state, as saved into a Project entry's
 // `input` field. Kept separate from ConcreteInput (lib/tools/concrete.ts)
@@ -74,10 +75,13 @@ export default function ConcreteCalculator({
         {(["metric", "imperial"] as Unit[]).map((u) => (
           <button
             key={u}
-            onClick={() => setUnit(u)}
+            onClick={() => {
+              hapticTap();
+              setUnit(u);
+            }}
             role="radio"
             aria-checked={unit === u}
-            className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
+            className={`tactile flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
               unit === u ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
           >
@@ -91,10 +95,13 @@ export default function ConcreteCalculator({
         {(["premix", "traditional"] as const).map((m) => (
           <button
             key={m}
-            onClick={() => setMethod(m)}
+            onClick={() => {
+              hapticTap();
+              setMethod(m);
+            }}
             role="radio"
             aria-checked={method === m}
-            className={`flex-1 py-2 rounded-md text-xs font-semibold uppercase tracking-wide transition ${
+            className={`tactile flex-1 py-2 rounded-md text-xs font-semibold uppercase tracking-wide transition ${
               method === m ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
           >
@@ -135,10 +142,13 @@ export default function ConcreteCalculator({
                 {[20, 25].map((size) => (
                   <button
                     key={size}
-                    onClick={() => setBagSizeKg(size as 20 | 25)}
+                    onClick={() => {
+                      hapticTap();
+                      setBagSizeKg(size as 20 | 25);
+                    }}
                     role="radio"
                     aria-checked={bagSizeKg === size}
-                    className={`flex-1 py-2 rounded-lg border-2 text-sm font-semibold transition ${
+                    className={`tactile flex-1 py-2 rounded-lg border-2 text-sm font-semibold transition ${
                       bagSizeKg === size
                         ? "border-safety-dark bg-safety text-graphite"
                         : "border-concrete-dark text-neutral-600"
@@ -165,10 +175,13 @@ export default function ConcreteCalculator({
               {CONCRETE_MIX_PRESETS.map((preset, i) => (
                 <button
                   key={preset.label}
-                  onClick={() => setMixIndex(i)}
+                  onClick={() => {
+                    hapticTap();
+                    setMixIndex(i);
+                  }}
                   role="radio"
                   aria-checked={mixIndex === i}
-                  className={`w-full text-left py-2 px-3 rounded-lg border-2 text-sm font-medium transition ${
+                  className={`tactile w-full text-left py-2 px-3 rounded-lg border-2 text-sm font-medium transition ${
                     mixIndex === i
                       ? "border-safety-dark bg-safety text-graphite"
                       : "border-concrete-dark text-neutral-600"
@@ -251,7 +264,8 @@ export default function ConcreteCalculator({
 
           {onSave && (
             <button
-              onClick={() =>
+              onClick={() => {
+                hapticTap();
                 onSave({
                   input: {
                     unit,
@@ -265,9 +279,9 @@ export default function ConcreteCalculator({
                     mixIndex,
                   },
                   result,
-                })
-              }
-              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+                });
+              }}
+              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

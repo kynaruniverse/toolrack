@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { calculateRecipeCost, RecipeIngredient, RecipeCostResult } from "@/lib/tools/recipeCost";
+import { hapticTap } from "@/lib/haptics";
 
 let nextId = 1;
 
@@ -82,9 +83,12 @@ export default function RecipeCostCalculator({
               </span>
               {ingredients.length > 1 && (
                 <button
-                  onClick={() => removeIngredient(ing.id)}
+                  onClick={() => {
+                    hapticTap();
+                    removeIngredient(ing.id);
+                  }}
                   aria-label={`Remove ingredient ${idx + 1}`}
-                  className="text-xs font-semibold uppercase tracking-wide text-steel"
+                  className="tactile text-xs font-semibold uppercase tracking-wide text-steel"
                 >
                   Remove
                 </button>
@@ -127,8 +131,11 @@ export default function RecipeCostCalculator({
           </div>
         ))}
         <button
-          onClick={addIngredient}
-          className="w-full rounded-lg border-2 border-dashed border-neutral-400 py-2 text-sm font-semibold uppercase tracking-wide text-neutral-600"
+          onClick={() => {
+            hapticTap();
+            addIngredient();
+          }}
+          className="tactile w-full rounded-lg border-2 border-dashed border-neutral-400 py-2 text-sm font-semibold uppercase tracking-wide text-neutral-600"
         >
           + Add another ingredient
         </button>
@@ -172,8 +179,11 @@ export default function RecipeCostCalculator({
 
           {onSave && (
             <button
-              onClick={() => onSave({ input: { ingredients, portions }, result })}
-              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+              onClick={() => {
+                hapticTap();
+                onSave({ input: { ingredients, portions }, result });
+              }}
+              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

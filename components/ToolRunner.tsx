@@ -1,9 +1,10 @@
 "use client";
 
-import { cloneElement, isValidElement, ReactElement, ReactNode, Suspense } from "react";
+import { cloneElement, isValidElement, ReactElement, ReactNode, Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { ToolMeta } from "@/lib/types";
 import { getEntry, getOrCreateActiveProject, addEntryToProject } from "@/lib/projects";
+import { recordToolVisit } from "@/lib/usage";
 import ProjectBar from "@/components/ProjectBar";
 
 function ToolRunnerInner({ tool, children }: { tool: ToolMeta; children: ReactNode }) {
@@ -11,6 +12,10 @@ function ToolRunnerInner({ tool, children }: { tool: ToolMeta; children: ReactNo
   const projectId = searchParams.get("projectId");
   const entryId = searchParams.get("entryId");
   const existingEntry = projectId && entryId ? getEntry(projectId, entryId) : undefined;
+
+  useEffect(() => {
+    recordToolVisit(tool.slug);
+  }, [tool.slug]);
 
   const handleSave = (payload: { input: Record<string, unknown>; result: Record<string, unknown> }) => {
     const project = getOrCreateActiveProject();

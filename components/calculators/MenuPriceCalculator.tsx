@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { calculateMenuPrice, PricingMethod, MenuPriceResult } from "@/lib/tools/menuPrice";
+import { hapticTap } from "@/lib/haptics";
 
 export interface MenuPriceFormState {
   cost: string;
@@ -37,10 +38,13 @@ export default function MenuPriceCalculator({
         {(["markup", "margin"] as PricingMethod[]).map((m) => (
           <button
             key={m}
-            onClick={() => setMethod(m)}
+            onClick={() => {
+              hapticTap();
+              setMethod(m);
+            }}
             role="radio"
             aria-checked={method === m}
-            className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
+            className={`tactile flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
               method === m ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
           >
@@ -116,8 +120,11 @@ export default function MenuPriceCalculator({
 
           {onSave && (
             <button
-              onClick={() => onSave({ input: { cost, method, percent }, result })}
-              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+              onClick={() => {
+                hapticTap();
+                onSave({ input: { cost, method, percent }, result });
+              }}
+              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { calculateExcavation, Unit, ExcavationResult } from "@/lib/calculations";
+import { hapticTap } from "@/lib/haptics";
 
 export interface ExcavationFormState {
   unit: Unit;
@@ -41,10 +42,13 @@ export default function ExcavationCalculator({
         {(["metric", "imperial"] as Unit[]).map((u) => (
           <button
             key={u}
-            onClick={() => setUnit(u)}
+            onClick={() => {
+              hapticTap();
+              setUnit(u);
+            }}
             role="radio"
             aria-checked={unit === u}
-            className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
+            className={`tactile flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
               unit === u ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
           >
@@ -97,13 +101,14 @@ export default function ExcavationCalculator({
 
           {onSave && (
             <button
-              onClick={() =>
+              onClick={() => {
+                hapticTap();
                 onSave({
                   input: { unit, length, width, depth, wastePercent },
                   result,
-                })
-              }
-              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+                });
+              }}
+              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

@@ -8,6 +8,7 @@ import {
   IngredientKey,
   KitchenUnit,
 } from "@/lib/tools/kitchenConverter";
+import { hapticTap } from "@/lib/haptics";
 
 const INGREDIENT_OPTIONS = Object.entries(INGREDIENT_DENSITIES) as [
   IngredientKey,
@@ -156,13 +157,14 @@ export default function KitchenUnitConverter({
 
           {onSave && (
             <button
-              onClick={() =>
+              onClick={() => {
+                hapticTap();
                 onSave({
                   input: { value, fromUnit, toUnit, ingredient },
                   result: { value: result, unit: toMeta.label },
-                })
-              }
-              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+                });
+              }}
+              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

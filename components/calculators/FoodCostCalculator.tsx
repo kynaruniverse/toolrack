@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { calculateFoodCostPercent, FoodCostResult } from "@/lib/tools/foodCostPercent";
+import { hapticTap } from "@/lib/haptics";
 
 export interface FoodCostFormState {
   ingredientCost: string;
@@ -121,13 +122,14 @@ export default function FoodCostCalculator({
 
           {onSave && (
             <button
-              onClick={() =>
+              onClick={() => {
+                hapticTap();
                 onSave({
                   input: { ingredientCost, sellingPrice, targetPercent },
                   result,
-                })
-              }
-              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+                });
+              }}
+              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

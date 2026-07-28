@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Project, getProject, deleteEntry, renameProject } from "@/lib/projects";
 import { getToolBySlug } from "@/lib/racks";
+import { hapticTap } from "@/lib/haptics";
 
 function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -62,8 +63,11 @@ export default function ProjectDetailPage() {
                 className="flex-1 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base bg-white focus:outline-none focus:border-steel"
               />
               <button
-                onClick={confirmRename}
-                className="rounded-lg bg-safety text-graphite font-semibold text-sm px-4 uppercase tracking-wide"
+                onClick={() => {
+                  hapticTap();
+                  confirmRename();
+                }}
+                className="tactile rounded-lg bg-safety text-graphite font-semibold text-sm px-4 uppercase tracking-wide"
               >
                 Save
               </button>
@@ -72,8 +76,11 @@ export default function ProjectDetailPage() {
             <div className="flex items-center justify-between mb-2">
               <h1 className="font-display uppercase text-3xl tracking-tight text-white">{project.name}</h1>
               <button
-                onClick={startRename}
-                className="text-xs font-semibold uppercase tracking-wider text-safety shrink-0 ml-3"
+                onClick={() => {
+                  hapticTap();
+                  startRename();
+                }}
+                className="tactile text-xs font-semibold uppercase tracking-wider text-safety shrink-0 ml-3"
               >
                 Rename
               </button>
@@ -100,10 +107,11 @@ export default function ProjectDetailPage() {
                 <p className="font-semibold text-graphite">{entry.label}</p>
                 <button
                   onClick={() => {
+                    hapticTap();
                     deleteEntry(project.id, entry.id);
                     refresh();
                   }}
-                  className="text-xs font-semibold uppercase tracking-wide text-steel"
+                  className="tactile text-xs font-semibold uppercase tracking-wide text-steel"
                 >
                   Remove
                 </button>

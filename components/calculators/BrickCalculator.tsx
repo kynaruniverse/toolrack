@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { calculateBrick, Unit, MORTAR_MIX_PRESETS, BrickResult } from "@/lib/calculations";
+import { hapticTap } from "@/lib/haptics";
 
 const UNIT_PRESETS = {
   brick: { label: "Brick", lengthMm: 215, heightMm: 65 },
@@ -80,10 +81,13 @@ export default function BrickCalculator({
         {(["metric", "imperial"] as Unit[]).map((u) => (
           <button
             key={u}
-            onClick={() => setUnit(u)}
+            onClick={() => {
+              hapticTap();
+              setUnit(u);
+            }}
             role="radio"
             aria-checked={unit === u}
-            className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
+            className={`tactile flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
               unit === u ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
           >
@@ -96,10 +100,13 @@ export default function BrickCalculator({
         {(["brick", "block"] as const).map((t) => (
           <button
             key={t}
-            onClick={() => selectUnitType(t)}
+            onClick={() => {
+              hapticTap();
+              selectUnitType(t);
+            }}
             role="radio"
             aria-checked={unitType === t}
-            className={`flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
+            className={`tactile flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
               unitType === t ? "bg-graphite text-white shadow" : "text-neutral-600"
             }`}
           >
@@ -123,10 +130,13 @@ export default function BrickCalculator({
             {[20, 25].map((size) => (
               <button
                 key={size}
-                onClick={() => setMortarBagSizeKg(size as 20 | 25)}
+                onClick={() => {
+                  hapticTap();
+                  setMortarBagSizeKg(size as 20 | 25);
+                }}
                 role="radio"
                 aria-checked={mortarBagSizeKg === size}
-                className={`flex-1 py-2 rounded-lg border-2 text-sm font-semibold transition ${
+                className={`tactile flex-1 py-2 rounded-lg border-2 text-sm font-semibold transition ${
                   mortarBagSizeKg === size
                     ? "border-safety-dark bg-safety text-graphite"
                     : "border-concrete-dark text-neutral-600"
@@ -146,10 +156,13 @@ export default function BrickCalculator({
             {MORTAR_MIX_PRESETS.map((preset, i) => (
               <button
                 key={preset.label}
-                onClick={() => setMortarMixIndex(i)}
+                onClick={() => {
+                  hapticTap();
+                  setMortarMixIndex(i);
+                }}
                 role="radio"
                 aria-checked={mortarMixIndex === i}
-                className={`w-full text-left py-2 px-3 rounded-lg border-2 text-sm font-medium transition ${
+                className={`tactile w-full text-left py-2 px-3 rounded-lg border-2 text-sm font-medium transition ${
                   mortarMixIndex === i
                     ? "border-safety-dark bg-safety text-graphite"
                     : "border-concrete-dark text-neutral-600"
@@ -223,7 +236,8 @@ export default function BrickCalculator({
 
           {onSave && (
             <button
-              onClick={() =>
+              onClick={() => {
+                hapticTap();
                 onSave({
                   input: {
                     unit,
@@ -238,9 +252,9 @@ export default function BrickCalculator({
                     wastePercent,
                   },
                   result,
-                })
-              }
-              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+                });
+              }}
+              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

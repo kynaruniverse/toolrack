@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { calculateMaterialCost, MaterialLineItem, MaterialCostResult } from "@/lib/calculations";
+import { hapticTap } from "@/lib/haptics";
 
 let nextId = 1;
 
@@ -84,9 +85,12 @@ export default function MaterialCostCalculator({
               </span>
               {items.length > 1 && (
                 <button
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => {
+                    hapticTap();
+                    removeItem(item.id);
+                  }}
                   aria-label={`Remove material ${idx + 1}`}
-                  className="text-xs font-semibold uppercase tracking-wide text-steel"
+                  className="tactile text-xs font-semibold uppercase tracking-wide text-steel"
                 >
                   Remove
                 </button>
@@ -125,8 +129,11 @@ export default function MaterialCostCalculator({
           </div>
         ))}
         <button
-          onClick={addItem}
-          className="w-full rounded-lg border-2 border-dashed border-neutral-400 py-2 text-sm font-semibold uppercase tracking-wide text-neutral-600"
+          onClick={() => {
+            hapticTap();
+            addItem();
+          }}
+          className="tactile w-full rounded-lg border-2 border-dashed border-neutral-400 py-2 text-sm font-semibold uppercase tracking-wide text-neutral-600"
         >
           + Add another material
         </button>
@@ -170,13 +177,14 @@ export default function MaterialCostCalculator({
 
           {onSave && (
             <button
-              onClick={() =>
+              onClick={() => {
+                hapticTap();
                 onSave({
                   input: { items, labourHours, labourRate, marginPercent },
                   result,
-                })
-              }
-              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+                });
+              }}
+              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

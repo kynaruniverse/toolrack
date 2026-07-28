@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Project, getProjects, createProject, renameProject } from "@/lib/projects";
 import ReadoutChip from "@/components/ReadoutChip";
+import { hapticTap } from "@/lib/haptics";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -61,7 +62,8 @@ export default function ProjectsPage() {
             />
             <button
               type="submit"
-              className="bg-graphite text-white font-display uppercase tracking-wider text-xs px-4 py-2 rounded-lg hover:bg-black transition"
+              onClick={hapticTap}
+              className="tactile bg-graphite text-white font-display uppercase tracking-wider text-xs px-4 py-2 rounded-lg hover:bg-black transition"
             >
               + Create
             </button>
@@ -80,8 +82,11 @@ export default function ProjectsPage() {
                     className="flex-1 border border-concrete-dark rounded px-2 py-1 text-sm"
                   />
                   <button
-                    onClick={() => handleRename(p.id)}
-                    className="text-xs font-semibold uppercase text-safety-dark"
+                    onClick={() => {
+                      hapticTap();
+                      handleRename(p.id);
+                    }}
+                    className="tactile text-xs font-semibold uppercase text-safety-dark"
                   >
                     Save
                   </button>
@@ -94,10 +99,11 @@ export default function ProjectsPage() {
                   </Link>
                   <button
                     onClick={() => {
+                      hapticTap();
                       setRenamingId(p.id);
                       setRenameValue(p.name);
                     }}
-                    className="text-xs font-semibold text-neutral-400 hover:text-graphite uppercase tracking-wide"
+                    className="tactile text-xs font-semibold text-neutral-400 hover:text-graphite uppercase tracking-wide"
                   >
                     Rename
                   </button>

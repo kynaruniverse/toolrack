@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { convertUnit, CONVERSION_UNITS, ConversionCategory } from "@/lib/calculations";
+import { hapticTap } from "@/lib/haptics";
 
 const CATEGORIES: { key: ConversionCategory; label: string }[] = [
   { key: "length", label: "Length" },
@@ -48,10 +49,13 @@ export default function UnitConverter({
         {CATEGORIES.map((c) => (
           <button
             key={c.key}
-            onClick={() => selectCategory(c.key)}
+            onClick={() => {
+              hapticTap();
+              selectCategory(c.key);
+            }}
             role="radio"
             aria-checked={category === c.key}
-            className={`py-2 rounded-lg border-2 text-xs font-semibold uppercase tracking-wide transition ${
+            className={`tactile py-2 rounded-lg border-2 text-xs font-semibold uppercase tracking-wide transition ${
               category === c.key
                 ? "border-safety-dark bg-safety text-graphite"
                 : "border-concrete-dark text-neutral-600"
@@ -123,16 +127,17 @@ export default function UnitConverter({
 
           {onSave && (
             <button
-              onClick={() =>
+              onClick={() => {
+                hapticTap();
                 onSave({
                   input: { category, value, fromKey, toKey },
                   result: {
                     value: result,
                     unit: units.find((u) => u.key === toKey)?.label ?? "",
                   },
-                })
-              }
-              className="mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+                });
+              }}
+              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

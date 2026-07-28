@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Project, getProjects, getOrCreateActiveProject, setActiveProjectId, createProject } from "@/lib/projects";
 import ReadoutChip from "@/components/ReadoutChip";
+import { hapticTap } from "@/lib/haptics";
 
 export default function ProjectBar() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -38,9 +39,12 @@ export default function ProjectBar() {
   return (
     <div className="max-w-md mx-auto px-6 py-4 relative">
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => {
+          hapticTap();
+          setOpen((o) => !o);
+        }}
         aria-expanded={open}
-        className="w-full flex items-center justify-between rounded-lg border-2 border-concrete-dark bg-white px-4 py-2.5 shadow-sm"
+        className="tactile w-full flex items-center justify-between rounded-lg border-2 border-concrete-dark bg-white px-4 py-2.5 shadow-sm"
       >
         <span className="text-left">
           <span className="block text-[10px] uppercase tracking-widest text-neutral-400 font-semibold">

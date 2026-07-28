@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { racks } from "@/lib/racks";
 import DepartmentBin from "@/components/DepartmentBin";
+import TopTools from "@/components/TopTools";
 
 export default function Home() {
   return (
@@ -37,6 +38,8 @@ export default function Home() {
 
       {/* Departments: one bin per trade */}
       <div className="max-w-md mx-auto px-6 pt-12 pb-16">
+        <TopTools />
+
         <p className="font-display uppercase tracking-[0.2em] text-graphite text-xs mb-6 text-center">
           Pick a department
         </p>
