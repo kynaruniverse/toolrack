@@ -19,13 +19,15 @@ export default function DepartmentBin({ rack }: { rack: Rack }) {
       {/* Ambient shelf glow behind the glass, suggesting light from above */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/50 to-transparent" />
 
-      {/* Preview tools — seen through the frosted lid, sharpening on tap */}
-      <div className="absolute top-[16%] left-[10%] right-[10%] bottom-[30%] z-0 flex flex-col justify-end gap-1 pointer-events-none perspective-[400px]">
+      {/* Preview tools — seen through the frosted lid, sharpening on tap.
+          Kept well clear of the top edge and given a shallower tilt so the
+          3D rotation never renders outside the card even before clipping. */}
+      <div className="absolute top-[22%] left-[10%] right-[10%] bottom-[30%] z-0 flex flex-col justify-end gap-1 pointer-events-none perspective-[400px]">
         {!dim && previewTools.length > 0 ? (
           previewTools.map((tool, idx) => (
             <div
               key={tool.slug || idx}
-              className="bg-white/90 text-graphite px-1.5 py-0.5 sm:py-1 sm:px-2 rounded shadow-sm transform rotate-x-[10deg] transition-all duration-200 group-hover:rotate-x-0 group-active:rotate-x-0"
+              className="bg-white/90 text-graphite px-1.5 py-0.5 sm:py-1 sm:px-2 rounded shadow-sm transform rotate-x-[6deg] transition-all duration-200 group-hover:rotate-x-0 group-active:rotate-x-0"
             >
               <span className="block font-display uppercase text-[8px] sm:text-[10px] tracking-wide truncate font-bold">
                 {tool.name}
@@ -56,7 +58,7 @@ export default function DepartmentBin({ rack }: { rack: Rack }) {
       <div
         className={`absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full text-[8px] sm:text-[9px] font-display font-extrabold uppercase tracking-widest whitespace-nowrap backdrop-blur-sm border pointer-events-none ${
           dim
-            ? "bg-white/25 border-white/40 text-neutral-700"
+            ? "bg-white/40 border-white/60 text-graphite"
             : "bg-white/10 border-white/25 text-white"
         }`}
       >
@@ -66,7 +68,7 @@ export default function DepartmentBin({ rack }: { rack: Rack }) {
   );
 
   if (dim) {
-    return <div className="h-full opacity-75 cursor-not-allowed">{content}</div>;
+    return <div className="h-full opacity-90 cursor-not-allowed">{content}</div>;
   }
 
   return (

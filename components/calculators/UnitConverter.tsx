@@ -76,7 +76,7 @@ export default function UnitConverter({
             min="0"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:ring-0 focus:border-steel"
+            className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
           />
         </div>
 
@@ -86,7 +86,7 @@ export default function UnitConverter({
             id="converter-from"
             value={fromKey}
             onChange={(e) => setFromKey(e.target.value)}
-            className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel bg-white"
+            className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25 bg-white"
           >
             {units.map((u) => (
               <option key={u.key} value={u.key}>
@@ -102,7 +102,7 @@ export default function UnitConverter({
             id="converter-to"
             value={toKey}
             onChange={(e) => setToKey(e.target.value)}
-            className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel bg-white"
+            className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25 bg-white"
           >
             {units.map((u) => (
               <option key={u.key} value={u.key}>

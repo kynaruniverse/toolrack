@@ -102,7 +102,7 @@ export default function MaterialCostCalculator({
               onChange={(e) => updateItem(item.id, "name", e.target.value)}
               placeholder="e.g. Timber"
               aria-label={`Material ${idx + 1} name`}
-              className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base mb-2 focus:outline-none focus:border-steel"
+              className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base mb-2 focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
             />
             <div className="flex gap-2">
               <input
@@ -113,7 +113,7 @@ export default function MaterialCostCalculator({
                 onChange={(e) => updateItem(item.id, "quantity", e.target.value)}
                 placeholder="Quantity"
                 aria-label={`Material ${idx + 1} quantity`}
-                className="w-1/2 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel"
+                className="w-1/2 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
               />
               <input
                 type="number"
@@ -123,7 +123,7 @@ export default function MaterialCostCalculator({
                 onChange={(e) => updateItem(item.id, "unitPrice", e.target.value)}
                 placeholder="Unit price £"
                 aria-label={`Material ${idx + 1} unit price`}
-                className="w-1/2 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel"
+                className="w-1/2 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
               />
             </div>
           </div>
@@ -226,7 +226,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="0"
-        className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:ring-0 focus:border-steel"
+        className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
       />
     </div>
   );

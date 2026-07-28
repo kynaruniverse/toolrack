@@ -82,7 +82,7 @@ export default function ProjectBar() {
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               placeholder="New project name"
-              className="w-full rounded-lg border-2 border-concrete-dark px-3 py-1.5 text-sm focus:outline-none focus:border-steel"
+              className="w-full rounded-lg border-2 border-concrete-dark px-3 py-1.5 text-sm focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
             />
             <button
               onClick={addProject}
