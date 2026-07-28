@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Project, getProject, deleteEntry, renameProject } from "@/lib/projects";
+import { Project, getProject, deleteEntry, renameProject, summarizeEntry } from "@/lib/projects";
 import { getToolBySlug } from "@/lib/racks";
 import { hapticTap } from "@/lib/haptics";
 
@@ -120,7 +120,7 @@ export default function ProjectDetailPage() {
                 <span className="inline-block rounded-full bg-concrete px-2 py-0.5 mr-1.5 text-graphite">
                   {capitalize(entry.toolType)}
                 </span>
-                {tool?.name ?? entry.toolSlug}
+                {summarizeEntry(entry) || (tool?.name ?? entry.toolSlug)}
               </p>
               {tool && (
                 <Link

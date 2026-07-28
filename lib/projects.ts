@@ -1,4 +1,12 @@
 import { ToolType } from "@/lib/types";
+import { ConcreteResult } from "@/lib/tools/concrete";
+import { BrickResult } from "@/lib/tools/brick";
+import { RebarResult } from "@/lib/tools/rebar";
+import { ExcavationResult } from "@/lib/tools/excavation";
+import { MaterialCostResult } from "@/lib/tools/materialCost";
+import { RecipeCostResult } from "@/lib/tools/recipeCost";
+import { FoodCostResult } from "@/lib/tools/foodCostPercent";
+import { MenuPriceResult } from "@/lib/tools/menuPrice";
 
 export interface ProjectEntry {
   id: string;
@@ -19,6 +27,59 @@ export interface Project {
   createdAt: string;
   updatedAt: string;
   entries: ProjectEntry[];
+}
+
+// A short, tool-specific summary of an entry's saved result — shown on the
+// saved-entry card instead of repeating the tool name a second time.
+export function summarizeEntry(entry: ProjectEntry): string {
+  const r = entry.result;
+  switch (entry.toolSlug) {
+    case "concrete-calculator": {
+      const res = r as unknown as ConcreteResult;
+      return res.bagsRequired
+        ? `${res.volumeWithWasteM3.toFixed(2)} m³ · ${res.bagsRequired} bags`
+        : `${res.volumeWithWasteM3.toFixed(2)} m³`;
+    }
+    case "brick-calculator": {
+      const res = r as unknown as BrickResult;
+      return `${res.bricksRequired} bricks · ${res.wallAreaM2.toFixed(1)} m²`;
+    }
+    case "rebar-calculator": {
+      const res = r as unknown as RebarResult;
+      return `${res.totalWeightKg} kg total`;
+    }
+    case "excavation-calculator": {
+      const res = r as unknown as ExcavationResult;
+      return `${res.bulkedSpoilM3} m³ spoil · ${res.skipsRequired} skip${res.skipsRequired === 1 ? "" : "s"}`;
+    }
+    case "material-cost-calculator": {
+      const res = r as unknown as MaterialCostResult;
+      return `£${res.finalQuote.toFixed(2)} quote`;
+    }
+    case "recipe-cost-calculator": {
+      const res = r as unknown as RecipeCostResult;
+      return `£${res.costPerPortion.toFixed(2)} per portion`;
+    }
+    case "food-cost-calculator": {
+      const res = r as unknown as FoodCostResult;
+      return res.foodCostPercent !== null
+        ? `${res.foodCostPercent}% food cost`
+        : res.suggestedSellingPrice !== null
+        ? `£${res.suggestedSellingPrice.toFixed(2)} suggested price`
+        : "";
+    }
+    case "menu-price-calculator": {
+      const res = r as unknown as MenuPriceResult;
+      return `£${res.price.toFixed(2)} price`;
+    }
+    case "unit-converter":
+    case "kitchen-unit-converter": {
+      const res = r as unknown as { value: number; unit: string };
+      return `${res.value} ${res.unit}`;
+    }
+    default:
+      return "";
+  }
 }
 
 const STORAGE_KEY = "toolrack:projects";

@@ -51,7 +51,7 @@ export default function FoodCostCalculator({
           value={ingredientCost}
           onChange={(e) => setIngredientCost(e.target.value)}
           placeholder="e.g. 3.00"
-          className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel"
+          className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:ring-0 focus:border-steel"
         />
       </div>
 
@@ -70,7 +70,7 @@ export default function FoodCostCalculator({
           value={sellingPrice}
           onChange={(e) => setSellingPrice(e.target.value)}
           placeholder="e.g. 12.00"
-          className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-steel"
+          className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:ring-0 focus:border-steel"
         />
       </div>
 

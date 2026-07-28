@@ -12,7 +12,7 @@ export default function DepartmentBin({ rack }: { rack: Rack }) {
 
   const content = (
     <div
-      className={`relative w-full aspect-[4/3] perspective-[800px] group select-none transition-transform duration-300 ${
+      className={`relative w-full aspect-[4/3] overflow-hidden rounded-2xl perspective-[800px] group select-none transition-transform duration-300 ${
         !dim ? "hover:-translate-y-1.5 hover:scale-[1.03] active:-translate-y-0.5 active:scale-[0.99]" : ""
       }`}
     >
