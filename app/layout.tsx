@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Big_Shoulders_Stencil, Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Big_Shoulders_Stencil_Display, Archivo, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const displayFont = Big_Shoulders_Stencil({
+const displayFont = Big_Shoulders_Stencil_Display({
   subsets: ["latin"],
   weight: ["600", "700", "800"],
   variable: "--font-display",
