@@ -32,9 +32,9 @@ export default function RebarCalculator({
     : null;
 
   return (
-    <div className="w-full max-w-md mx-auto rounded-xl bg-white border border-concrete-dark shadow-sm p-5">
+    <div className="w-full max-w-md mx-auto ticket-edge relative bg-kraft border border-kraft-line rounded-sm p-5 pt-7">
       <div className="mb-4">
-        <label id="rebar-diameter-label" className="block text-sm font-semibold text-graphite mb-2">
+        <label id="rebar-diameter-label" className="block text-sm font-semibold text-ink mb-2">
           Bar diameter (mm)
         </label>
         <div className="grid grid-cols-4 gap-2" role="radiogroup" aria-labelledby="rebar-diameter-label">
@@ -49,8 +49,8 @@ export default function RebarCalculator({
               aria-checked={diameterMm === d}
               className={`tactile py-2 rounded-lg border-2 text-sm font-semibold transition ${
                 diameterMm === d
-                  ? "border-safety-dark bg-safety text-graphite"
-                  : "border-concrete-dark text-neutral-600"
+                  ? "border-safety-dark bg-safety text-ink"
+                  : "border-kraft-line text-neutral-600"
               }`}
             >
               {d}
@@ -65,20 +65,20 @@ export default function RebarCalculator({
       </div>
 
       {result && (
-        <div className="readout-panel mt-6 rounded-lg p-5">
-          <p className="text-[11px] uppercase tracking-widest text-neutral-400 mb-1">
+        <div className="carbon-slip mt-6 rounded-lg p-5">
+          <p className="text-[11px] uppercase tracking-widest text-ink/50 mb-1">
             Total weight
           </p>
-          <p className="readout-digits text-3xl font-semibold mb-3">
+          <p className="carbon-digits text-3xl font-semibold mb-3">
             {result.totalWeightKg} kg
           </p>
-          <p className="text-sm text-neutral-300 leading-relaxed">
+          <p className="text-sm text-ink/70 leading-relaxed">
             {diameterMm}mm bar weighs{" "}
-            <span className="readout-digits font-semibold">
+            <span className="carbon-digits font-semibold">
               {result.weightPerMetreKg} kg/m
             </span>{" "}
             over a total length of{" "}
-            <span className="readout-digits font-semibold">
+            <span className="carbon-digits font-semibold">
               {result.totalLengthM} m
             </span>
             .
@@ -93,7 +93,7 @@ export default function RebarCalculator({
                   result,
                 });
               }}
-              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+              className="tactile mt-4 w-full rounded-lg bg-safety text-ink font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>
@@ -121,7 +121,7 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-semibold text-graphite mb-1">{label}</label>
+      <label htmlFor={id} className="block text-sm font-semibold text-ink mb-1">{label}</label>
       <input
         id={id}
         type="number"
@@ -130,7 +130,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="0"
-        className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
+        className="w-full rounded-lg border-2 border-kraft-line px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
       />
     </div>
   );

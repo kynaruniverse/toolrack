@@ -76,7 +76,7 @@ export default function BrickCalculator({
   const lengthUnit = unit === "metric" ? "m" : "ft";
 
   return (
-    <div className="w-full max-w-md mx-auto rounded-xl bg-white border border-concrete-dark shadow-sm p-5">
+    <div className="w-full max-w-md mx-auto ticket-edge relative bg-kraft border border-kraft-line rounded-sm p-5 pt-7">
       <div className="rocker flex mb-4 rounded-lg p-1" role="radiogroup" aria-label="Unit system">
         {(["metric", "imperial"] as Unit[]).map((u) => (
           <button
@@ -88,7 +88,7 @@ export default function BrickCalculator({
             role="radio"
             aria-checked={unit === u}
             className={`tactile flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
-              unit === u ? "bg-graphite text-white shadow" : "text-neutral-600"
+              unit === u ? "bg-ink text-kraft shadow" : "text-neutral-600"
             }`}
           >
             {u === "metric" ? "Metric (m)" : "Imperial (ft)"}
@@ -107,7 +107,7 @@ export default function BrickCalculator({
             role="radio"
             aria-checked={unitType === t}
             className={`tactile flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
-              unitType === t ? "bg-graphite text-white shadow" : "text-neutral-600"
+              unitType === t ? "bg-ink text-kraft shadow" : "text-neutral-600"
             }`}
           >
             {UNIT_PRESETS[t].label}
@@ -123,7 +123,7 @@ export default function BrickCalculator({
         <Field id="brick-mortar-joint" label="Mortar joint (mm)" value={mortarJointMm} onChange={setMortarJointMm} />
 
         <div>
-          <label id="brick-mortar-bag-size-label" className="block text-sm font-semibold text-graphite mb-1">
+          <label id="brick-mortar-bag-size-label" className="block text-sm font-semibold text-ink mb-1">
             Mortar bag size
           </label>
           <div className="flex gap-2" role="radiogroup" aria-labelledby="brick-mortar-bag-size-label">
@@ -138,8 +138,8 @@ export default function BrickCalculator({
                 aria-checked={mortarBagSizeKg === size}
                 className={`tactile flex-1 py-2 rounded-lg border-2 text-sm font-semibold transition ${
                   mortarBagSizeKg === size
-                    ? "border-safety-dark bg-safety text-graphite"
-                    : "border-concrete-dark text-neutral-600"
+                    ? "border-safety-dark bg-safety text-ink"
+                    : "border-kraft-line text-neutral-600"
                 }`}
               >
                 {size}kg
@@ -149,7 +149,7 @@ export default function BrickCalculator({
         </div>
 
         <div>
-          <label id="brick-mortar-mix-ratio-label" className="block text-sm font-semibold text-graphite mb-1">
+          <label id="brick-mortar-mix-ratio-label" className="block text-sm font-semibold text-ink mb-1">
             Mortar mix ratio
           </label>
           <div className="space-y-2" role="radiogroup" aria-labelledby="brick-mortar-mix-ratio-label">
@@ -164,8 +164,8 @@ export default function BrickCalculator({
                 aria-checked={mortarMixIndex === i}
                 className={`tactile w-full text-left py-2 px-3 rounded-lg border-2 text-sm font-medium transition ${
                   mortarMixIndex === i
-                    ? "border-safety-dark bg-safety text-graphite"
-                    : "border-concrete-dark text-neutral-600"
+                    ? "border-safety-dark bg-safety text-ink"
+                    : "border-kraft-line text-neutral-600"
                 }`}
               >
                 {preset.label}
@@ -175,8 +175,8 @@ export default function BrickCalculator({
         </div>
 
         <div>
-          <label htmlFor="brick-waste" className="block text-sm font-semibold text-graphite mb-1">
-            Waste allowance: <span className="text-steel">{wastePercent}%</span>
+          <label htmlFor="brick-waste" className="block text-sm font-semibold text-ink mb-1">
+            Waste allowance: <span className="text-ink">{wastePercent}%</span>
           </label>
           <input
             id="brick-waste"
@@ -192,42 +192,42 @@ export default function BrickCalculator({
       </div>
 
       {result && (
-        <div className="readout-panel mt-6 rounded-lg p-5">
-          <p className="text-[11px] uppercase tracking-widest text-neutral-400 mb-1">
+        <div className="carbon-slip mt-6 rounded-lg p-5">
+          <p className="text-[11px] uppercase tracking-widest text-ink/50 mb-1">
             You&apos;ll need approximately
           </p>
-          <p className="readout-digits text-3xl font-semibold mb-3">
+          <p className="carbon-digits text-3xl font-semibold mb-3">
             {result.bricksRequired} {unitType === "brick" ? "bricks" : "blocks"}
           </p>
-          <p className="text-sm text-neutral-300 leading-relaxed">
+          <p className="text-sm text-ink/70 leading-relaxed">
             For a wall area of{" "}
-            <span className="readout-digits font-semibold">
+            <span className="carbon-digits font-semibold">
               {result.wallAreaM2.toFixed(2)} m²
             </span>
             , including a {wastePercent}% waste allowance.
           </p>
 
-          <div className="text-sm text-neutral-300 mt-3 pt-3 border-t border-gunmetal space-y-1">
-            <p className="text-[11px] uppercase tracking-widest text-neutral-400 mb-1">
+          <div className="text-sm text-ink/70 mt-3 pt-3 border-t border-carbon-ink/15 space-y-1">
+            <p className="text-[11px] uppercase tracking-widest text-ink/50 mb-1">
               Mortar needed ({result.mortarVolumeM3} m³)
             </p>
             <p>
               Cement:{" "}
-              <span className="readout-digits font-semibold">
+              <span className="carbon-digits font-semibold">
                 {result.mortarMix.cementBags} bags
               </span>{" "}
               ({mortarBagSizeKg}kg)
             </p>
             <p>
               Sand:{" "}
-              <span className="readout-digits font-semibold">
+              <span className="carbon-digits font-semibold">
                 {result.mortarMix.sandM3} m³
               </span>
             </p>
             {result.mortarMix.aggregateM3 > 0 && (
               <p>
                 Lime:{" "}
-                <span className="readout-digits font-semibold">
+                <span className="carbon-digits font-semibold">
                   {result.mortarMix.aggregateM3} m³
                 </span>
               </p>
@@ -254,7 +254,7 @@ export default function BrickCalculator({
                   result,
                 });
               }}
-              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+              className="tactile mt-4 w-full rounded-lg bg-safety text-ink font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>
@@ -278,7 +278,7 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-semibold text-graphite mb-1">{label}</label>
+      <label htmlFor={id} className="block text-sm font-semibold text-ink mb-1">{label}</label>
       <input
         id={id}
         type="number"
@@ -287,7 +287,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="0"
-        className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
+        className="w-full rounded-lg border-2 border-kraft-line px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
       />
     </div>
   );

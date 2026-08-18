@@ -35,11 +35,11 @@ export default function FoodCostCalculator({
     : null;
 
   return (
-    <div className="w-full max-w-md mx-auto rounded-xl bg-white border border-concrete-dark shadow-sm p-5">
+    <div className="w-full max-w-md mx-auto ticket-edge relative bg-kraft border border-kraft-line rounded-sm p-5 pt-7">
       <div className="mb-4">
         <label
           htmlFor="fc-cost"
-          className="block text-sm font-semibold text-graphite mb-1"
+          className="block text-sm font-semibold text-ink mb-1"
         >
           Ingredient cost per dish (£)
         </label>
@@ -51,14 +51,14 @@ export default function FoodCostCalculator({
           value={ingredientCost}
           onChange={(e) => setIngredientCost(e.target.value)}
           placeholder="e.g. 3.00"
-          className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
+          className="w-full rounded-lg border-2 border-kraft-line px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
         />
       </div>
 
       <div className="mb-4">
         <label
           htmlFor="fc-price"
-          className="block text-sm font-semibold text-graphite mb-1"
+          className="block text-sm font-semibold text-ink mb-1"
         >
           Current menu price (£) — optional
         </label>
@@ -70,16 +70,16 @@ export default function FoodCostCalculator({
           value={sellingPrice}
           onChange={(e) => setSellingPrice(e.target.value)}
           placeholder="e.g. 12.00"
-          className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
+          className="w-full rounded-lg border-2 border-kraft-line px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
         />
       </div>
 
       <div className="mb-4">
         <label
           htmlFor="fc-target"
-          className="block text-sm font-semibold text-graphite mb-1"
+          className="block text-sm font-semibold text-ink mb-1"
         >
-          Target food cost: <span className="text-steel">{targetPercent}%</span>
+          Target food cost: <span className="text-ink">{targetPercent}%</span>
         </label>
         <input
           id="fc-target"
@@ -94,28 +94,28 @@ export default function FoodCostCalculator({
       </div>
 
       {result && (
-        <div className="readout-panel rounded-lg p-5 space-y-1.5 text-sm">
+        <div className="carbon-slip rounded-lg p-5 space-y-1.5 text-sm">
           {result.foodCostPercent !== null && (
-            <div className="flex justify-between text-neutral-300">
+            <div className="flex justify-between text-ink/70">
               <span>Food cost at current price</span>
-              <span className="readout-digits">
+              <span className="carbon-digits">
                 {result.foodCostPercent}%
               </span>
             </div>
           )}
           {result.grossProfit !== null && (
-            <div className="flex justify-between text-neutral-300">
+            <div className="flex justify-between text-ink/70">
               <span>Gross profit per dish</span>
-              <span className="readout-digits">
+              <span className="carbon-digits">
                 £{result.grossProfit.toFixed(2)}
               </span>
             </div>
           )}
-          <div className="border-t border-gunmetal pt-3 mt-2 flex justify-between items-baseline">
-            <span className="text-xs uppercase tracking-widest text-neutral-400">
+          <div className="border-t border-carbon-ink/15 pt-3 mt-2 flex justify-between items-baseline">
+            <span className="text-xs uppercase tracking-widest text-ink/50">
               Price for {targetPercent}% food cost
             </span>
-            <span className="readout-digits text-xl font-semibold">
+            <span className="carbon-digits text-xl font-semibold">
               £{result.suggestedSellingPrice?.toFixed(2)}
             </span>
           </div>
@@ -129,7 +129,7 @@ export default function FoodCostCalculator({
                   result,
                 });
               }}
-              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+              className="tactile mt-4 w-full rounded-lg bg-safety text-ink font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

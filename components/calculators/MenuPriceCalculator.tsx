@@ -29,7 +29,7 @@ export default function MenuPriceCalculator({
     : null;
 
   return (
-    <div className="w-full max-w-md mx-auto rounded-xl bg-white border border-concrete-dark shadow-sm p-5">
+    <div className="w-full max-w-md mx-auto ticket-edge relative bg-kraft border border-kraft-line rounded-sm p-5 pt-7">
       <div
         className="rocker flex mb-4 rounded-lg p-1"
         role="radiogroup"
@@ -45,7 +45,7 @@ export default function MenuPriceCalculator({
             role="radio"
             aria-checked={method === m}
             className={`tactile flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
-              method === m ? "bg-graphite text-white shadow" : "text-neutral-600"
+              method === m ? "bg-ink text-kraft shadow" : "text-neutral-600"
             }`}
           >
             {m === "markup" ? "Markup" : "Margin"}
@@ -56,7 +56,7 @@ export default function MenuPriceCalculator({
       <div className="mb-4">
         <label
           htmlFor="menu-cost"
-          className="block text-sm font-semibold text-graphite mb-1"
+          className="block text-sm font-semibold text-ink mb-1"
         >
           Dish cost (£)
         </label>
@@ -68,17 +68,17 @@ export default function MenuPriceCalculator({
           value={cost}
           onChange={(e) => setCost(e.target.value)}
           placeholder="e.g. 5.00"
-          className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
+          className="w-full rounded-lg border-2 border-kraft-line px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
         />
       </div>
 
       <div className="mb-4">
         <label
           htmlFor="menu-percent"
-          className="block text-sm font-semibold text-graphite mb-1"
+          className="block text-sm font-semibold text-ink mb-1"
         >
           {method === "markup" ? "Markup" : "Margin"}:{" "}
-          <span className="text-steel">{percent}%</span>
+          <span className="text-ink">{percent}%</span>
         </label>
         <input
           id="menu-percent"
@@ -93,27 +93,27 @@ export default function MenuPriceCalculator({
       </div>
 
       {result && (
-        <div className="readout-panel rounded-lg p-5 space-y-1.5 text-sm">
-          <div className="flex justify-between text-neutral-300">
+        <div className="carbon-slip rounded-lg p-5 space-y-1.5 text-sm">
+          <div className="flex justify-between text-ink/70">
             <span>Profit per dish</span>
-            <span className="readout-digits">£{result.profit.toFixed(2)}</span>
+            <span className="carbon-digits">£{result.profit.toFixed(2)}</span>
           </div>
-          <div className="flex justify-between text-neutral-300">
+          <div className="flex justify-between text-ink/70">
             <span>
               Equivalent {method === "markup" ? "margin" : "markup"}
             </span>
-            <span className="readout-digits">
+            <span className="carbon-digits">
               {method === "markup"
                 ? result.equivalentMarginPercent
                 : result.equivalentMarkupPercent}
               %
             </span>
           </div>
-          <div className="border-t border-gunmetal pt-3 mt-2 flex justify-between items-baseline">
-            <span className="text-xs uppercase tracking-widest text-neutral-400">
+          <div className="border-t border-carbon-ink/15 pt-3 mt-2 flex justify-between items-baseline">
+            <span className="text-xs uppercase tracking-widest text-ink/50">
               Menu price
             </span>
-            <span className="readout-digits text-xl font-semibold">
+            <span className="carbon-digits text-xl font-semibold">
               £{result.price.toFixed(2)}
             </span>
           </div>
@@ -124,7 +124,7 @@ export default function MenuPriceCalculator({
                 hapticTap();
                 onSave({ input: { cost, method, percent }, result });
               }}
-              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+              className="tactile mt-4 w-full rounded-lg bg-safety text-ink font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>

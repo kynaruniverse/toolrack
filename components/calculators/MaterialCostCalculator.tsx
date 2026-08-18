@@ -75,10 +75,10 @@ export default function MaterialCostCalculator({
     : null;
 
   return (
-    <div className="w-full max-w-md mx-auto rounded-xl bg-white border border-concrete-dark shadow-sm p-5">
+    <div className="w-full max-w-md mx-auto ticket-edge relative bg-kraft border border-kraft-line rounded-sm p-5 pt-7">
       <div className="space-y-4 mb-4">
         {items.map((item, idx) => (
-          <div key={item.id} className="rounded-lg border-2 border-concrete-dark p-3">
+          <div key={item.id} className="rounded-lg border-2 border-kraft-line p-3">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
                 Material {idx + 1}
@@ -90,7 +90,7 @@ export default function MaterialCostCalculator({
                     removeItem(item.id);
                   }}
                   aria-label={`Remove material ${idx + 1}`}
-                  className="tactile text-xs font-semibold uppercase tracking-wide text-steel"
+                  className="tactile text-xs font-semibold uppercase tracking-wide text-ink"
                 >
                   Remove
                 </button>
@@ -102,7 +102,7 @@ export default function MaterialCostCalculator({
               onChange={(e) => updateItem(item.id, "name", e.target.value)}
               placeholder="e.g. Timber"
               aria-label={`Material ${idx + 1} name`}
-              className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base mb-2 focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
+              className="w-full rounded-lg border-2 border-kraft-line px-3 py-2 text-base mb-2 focus:outline-none focus:ring-0 focus:border-ink"
             />
             <div className="flex gap-2">
               <input
@@ -113,7 +113,7 @@ export default function MaterialCostCalculator({
                 onChange={(e) => updateItem(item.id, "quantity", e.target.value)}
                 placeholder="Quantity"
                 aria-label={`Material ${idx + 1} quantity`}
-                className="w-1/2 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
+                className="w-1/2 rounded-lg border-2 border-kraft-line px-3 py-2 text-base focus:outline-none focus:ring-0 focus:border-ink"
               />
               <input
                 type="number"
@@ -123,7 +123,7 @@ export default function MaterialCostCalculator({
                 onChange={(e) => updateItem(item.id, "unitPrice", e.target.value)}
                 placeholder="Unit price £"
                 aria-label={`Material ${idx + 1} unit price`}
-                className="w-1/2 rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
+                className="w-1/2 rounded-lg border-2 border-kraft-line px-3 py-2 text-base focus:outline-none focus:ring-0 focus:border-ink"
               />
             </div>
           </div>
@@ -145,8 +145,8 @@ export default function MaterialCostCalculator({
       </div>
 
       <div className="mb-4">
-        <label htmlFor="material-margin" className="block text-sm font-semibold text-graphite mb-1">
-          Margin: <span className="text-steel">{marginPercent}%</span>
+        <label htmlFor="material-margin" className="block text-sm font-semibold text-ink mb-1">
+          Margin: <span className="text-ink">{marginPercent}%</span>
         </label>
         <input
           id="material-margin"
@@ -161,16 +161,16 @@ export default function MaterialCostCalculator({
       </div>
 
       {result && (
-        <div className="readout-panel rounded-lg p-5 space-y-1.5 text-sm">
+        <div className="carbon-slip rounded-lg p-5 space-y-1.5 text-sm">
           <Row label="Materials" value={result.materialTotal} />
           <Row label="Labour" value={result.labourTotal} />
           <Row label="Subtotal" value={result.subtotal} />
           <Row label={`Margin (${marginPercent}%)`} value={result.marginAmount} />
-          <div className="border-t border-gunmetal pt-3 mt-2 flex justify-between items-baseline">
-            <span className="text-xs uppercase tracking-widest text-neutral-400">
+          <div className="border-t border-carbon-ink/15 pt-3 mt-2 flex justify-between items-baseline">
+            <span className="text-xs uppercase tracking-widest text-ink/50">
               Total quote
             </span>
-            <span className="readout-digits text-xl font-semibold">
+            <span className="carbon-digits text-xl font-semibold">
               £{result.finalQuote.toFixed(2)}
             </span>
           </div>
@@ -184,7 +184,7 @@ export default function MaterialCostCalculator({
                   result,
                 });
               }}
-              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+              className="tactile mt-4 w-full rounded-lg bg-safety text-ink font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>
@@ -197,9 +197,9 @@ export default function MaterialCostCalculator({
 
 function Row({ label, value }: { label: string; value: number }) {
   return (
-    <div className="flex justify-between text-neutral-300">
+    <div className="flex justify-between text-ink/70">
       <span>{label}</span>
-      <span className="readout-digits">£{value.toFixed(2)}</span>
+      <span className="carbon-digits">£{value.toFixed(2)}</span>
     </div>
   );
 }
@@ -217,7 +217,7 @@ function Field({
 }) {
   return (
     <div className="w-1/2">
-      <label htmlFor={id} className="block text-sm font-semibold text-graphite mb-1">{label}</label>
+      <label htmlFor={id} className="block text-sm font-semibold text-ink mb-1">{label}</label>
       <input
         id={id}
         type="number"
@@ -226,7 +226,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="0"
-        className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
+        className="w-full rounded-lg border-2 border-kraft-line px-3 py-2 text-base focus:outline-none focus:ring-0 focus:border-ink"
       />
     </div>
   );

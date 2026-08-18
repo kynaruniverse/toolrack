@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Fast, reliable tools for hands-on trades. No sign-up, no clutter, built for the job.",
     start_url: "/",
     display: "standalone",
-    background_color: "#1C1F22",
-    theme_color: "#1C1F22",
+    background_color: "#1B1B1A",
+    theme_color: "#1B1B1A",
     icons: [
       {
         src: "/icons/icon-192.png",

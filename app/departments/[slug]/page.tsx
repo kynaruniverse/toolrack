@@ -1,8 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { racks, getRackBySlug } from "@/lib/racks";
-import ToolCard from "@/components/ToolCard";
-import ReadoutChip from "@/components/ReadoutChip";
+import JobTicket from "@/components/JobTicket";
+
+const rackAccent: Record<string, "site" | "chit"> = {
+  construction: "site",
+  catering: "chit",
+};
 
 export function generateStaticParams() {
   return racks.filter((rack) => !rack.comingSoon).map((rack) => ({ slug: rack.slug }));
@@ -29,34 +33,44 @@ export default function DepartmentPage({
     notFound();
   }
 
+  const accent = rackAccent[rack.slug] ?? "site";
+
   return (
-    <main className="min-h-screen bg-concrete">
-      <div className="pegboard px-6 pt-10 pb-8">
+    <main className="min-h-screen bg-kraft-dark">
+      <div className="bg-ink px-6 pt-10 pb-8">
         <div className="max-w-md mx-auto">
           <Link
             href="/"
-            className="text-safety text-xs uppercase tracking-widest flex-shrink-0"
+            className="font-mono text-safety text-[11px] uppercase tracking-widest"
           >
-            ← All departments
+            &larr; All departments
           </Link>
-          <div className="flex items-center gap-3 mt-3">
-            <h1 className="font-display uppercase text-3xl tracking-tight text-white">
+          <div className="flex items-end justify-between mt-3">
+            <h1 className="font-display uppercase text-4xl tracking-tight text-kraft">
               {rack.name}
             </h1>
-            <div className="mt-1">
-              <ReadoutChip 
-                value={rack.tools.length} 
-                label={rack.tools.length === 1 ? "tool" : "tools"} 
-              />
-            </div>
+            <span className={`stamp px-2 py-0.5 text-xs uppercase ${accent === "site" ? "text-safety border-safety" : "text-chit border-chit"}`}>
+              {rack.code}
+            </span>
           </div>
+          <p className="font-mono text-neutral-400 text-xs uppercase tracking-wide mt-1">
+            {rack.tools.length} {rack.tools.length === 1 ? "ticket" : "tickets"} in this pad
+          </p>
         </div>
       </div>
 
-      <div className="max-w-md mx-auto px-6 pt-8 pb-16">
-        <div className="grid grid-cols-2 gap-3">
-          {rack.tools.map((tool) => (
-            <ToolCard key={tool.slug} tool={tool} />
+      <div className="corkboard px-6 pt-8 pb-16">
+        <div className="max-w-md mx-auto grid grid-cols-2 gap-x-3 gap-y-5">
+          {rack.tools.map((tool, i) => (
+            <JobTicket
+              key={tool.slug}
+              title={tool.name}
+              meta={tool.cardDescription}
+              number={`No. ${rack.code}-${String(i + 1).padStart(2, "0")}`}
+              accent={accent}
+              href={`/${tool.slug}`}
+              rotate={i % 2 === 0 ? "left" : "right"}
+            />
           ))}
         </div>
       </div>

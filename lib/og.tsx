@@ -17,7 +17,7 @@ export function toolOgImage(toolName: string) {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "#1C1F22",
+          background: "#1B1B1A",
           padding: "0 80px",
         }}
       >
@@ -39,7 +39,7 @@ export function toolOgImage(toolName: string) {
             fontWeight: 700,
             letterSpacing: 2,
             textTransform: "uppercase",
-            color: "#FFFFFF",
+            color: "#F2EFE6",
             textAlign: "center",
             lineHeight: 1.15,
             display: "flex",
@@ -50,7 +50,7 @@ export function toolOgImage(toolName: string) {
         <div
           style={{
             fontSize: 28,
-            color: "#C9C7C1",
+            color: "#C9C2AC",
             marginTop: 28,
             display: "flex",
           }}

@@ -16,48 +16,10 @@
     background-size: 18px 18px;
   }
 
-  /* A tool "hanging" on the rack: card body + a punched hook-hole at the top edge,
-     rendered as a notch cut from the card into the page background colour. */
-  .hook-card {
-    position: relative;
-  }
-  .hook-card::before {
-    content: "";
-    position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 18px;
-    height: 18px;
-    background: #EDEDE9;
-    border: 1px solid #DFDEDA;
-    border-radius: 9999px;
-    z-index: 10;
-  }
-
-  /* Digital tool readout: the LCD/laser-measure display used for calculator results */
-  .readout-panel {
-    background: #14171A;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.025) 0px,
-      rgba(255, 255, 255, 0.025) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-    border: 1px solid #33383D;
-  }
-  .readout-digits {
-    font-family: var(--font-plex-mono), monospace;
-    color: #FFB100;
-    text-shadow: 0 0 12px rgba(255, 177, 0, 0.35);
-    font-variant-numeric: tabular-nums;
-  }
-
   /* Rocker-style unit toggle, styled after a physical switch rather than a segmented tab */
   .rocker {
-    background: #DFDEDA;
-    border: 1px solid #C9C7C1;
+    background: #E3DDC8;
+    border: 1px solid #C9C2AC;
   }
 
   /* Tactile press — a real switch depressing under a fingertip. Add to any
@@ -69,38 +31,58 @@
     transform: translateY(2px) scale(0.98);
   }
 
-  /* Frosted acrylic bin lid — the translucent parts-organizer look. Sits over
-     the tilted preview-tool deck and blurs it like tools seen through a
-     smoked-plastic lid; the blur backs off on hover/press so the tools
-     underneath sharpen into focus. A live bin carries a faint safety-yellow
-     glow at the edge; a coming-soon bin "ices over" instead, reading as
-     unavailable without just being dimmed flat. */
-  .frosted-bin {
-    background: linear-gradient(180deg, rgba(28, 31, 34, 0.55), rgba(28, 31, 34, 0.78));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.35),
-      inset 0 -10px 18px rgba(0, 0, 0, 0.3),
-      0 6px 16px rgba(255, 199, 44, 0.14),
-      0 10px 22px rgba(0, 0, 0, 0.22);
-    transition: backdrop-filter 250ms ease-out, background 250ms ease-out;
+  /* ---- Job-ticket system ------------------------------------------------
+     The browse/nav UI (homepage, department pages) is built as a corkboard
+     of pinned job tickets/dockets — the paperwork both a site office and a
+     kitchen pass actually use. A ticket is kraft paper with a scalloped
+     tear-off edge along the top and a coloured ink stamp for its department.
+     A "coming soon" department renders as a ticket that hasn't been
+     written on yet: same shape, no ink. */
+
+  .corkboard {
+    background-color: #E3DDC8;
+    background-image: radial-gradient(rgba(27, 27, 26, 0.06) 1px, transparent 1.3px);
+    background-size: 14px 14px;
   }
-  .frosted-bin-dim {
-    background: linear-gradient(180deg, rgba(140, 138, 132, 0.82), rgba(140, 138, 132, 0.92));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.5),
-      inset 0 -8px 14px rgba(0, 0, 0, 0.22),
-      0 4px 10px rgba(0, 0, 0, 0.22);
+
+  /* Scalloped perforation along a ticket's top edge, torn from the pad above
+     it — the cutout colour matches the corkboard it sits on. */
+  .ticket-edge {
+    position: relative;
   }
-  .group:hover .frosted-bin,
-  .group:active .frosted-bin {
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    background: linear-gradient(180deg, rgba(28, 31, 34, 0.32), rgba(28, 31, 34, 0.52));
+  .ticket-edge::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 7px;
+    background-image: radial-gradient(circle at 7px 0, transparent 4.5px, #E3DDC8 4.5px);
+    background-size: 14px 7px;
+    background-repeat: repeat-x;
+  }
+
+  /* Rotated rubber-stamp badge used for a department's ink (e.g. "SITE", "CON"). */
+  .stamp {
+    transform: rotate(-4deg);
+    border: 2px solid currentColor;
+    font-family: var(--font-display), sans-serif;
+  }
+
+  /* The carbon-copy duplicate slip that peeks out from behind a ticket to
+     show a calculator's result — real duplicate-book paper prints in a
+     purple-blue smudge, not true black, which is where the ink colour
+     below comes from. Slight counter-rotation + dashed top edge reads as
+     a second, thinner sheet tucked in behind the input ticket. */
+  .carbon-slip {
+    background: #E6E1EE;
+    color: #3A3560;
+    border: 1px dashed rgba(58, 53, 96, 0.3);
+    transform: rotate(-0.4deg);
+  }
+  .carbon-digits {
+    font-family: var(--font-plex-mono), monospace;
+    color: #3A3560;
+    font-variant-numeric: tabular-nums;
   }
 }

@@ -26,10 +26,29 @@ const config: Config = {
           light: "#5A7A96",
         },
         readout: "#FFB100",
+        // Job-ticket system (new nav/browse UI) — a kraft docket book with
+        // two department inks, plus a carbon-copy duplicate-slip pairing.
+        ink: {
+          DEFAULT: "#1B1B1A",
+          light: "#3A3733",
+        },
+        kraft: {
+          DEFAULT: "#F2EFE6",
+          dark: "#E3DDC8",
+          line: "#C9C2AC",
+        },
+        chit: {
+          DEFAULT: "#C1432E",
+          dark: "#9E3323",
+        },
+        carbon: {
+          DEFAULT: "#E6E1EE",
+          ink: "#3A3560",
+        },
       },
       fontFamily: {
-        display: ["var(--font-oswald)", "sans-serif"],
-        body: ["var(--font-inter)", "sans-serif"],
+        display: ["var(--font-display)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
         mono: ["var(--font-plex-mono)", "monospace"],
       },
       backgroundImage: {

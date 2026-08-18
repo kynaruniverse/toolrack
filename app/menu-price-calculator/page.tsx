@@ -19,9 +19,16 @@ export const metadata = {
 
 export default function MenuPriceCalculatorPage() {
   return (
-    <main className="min-h-screen bg-concrete">
+    <main className="min-h-screen bg-kraft-dark">
       <ToolJsonLd tool={tool} />
-      <ToolHeader         title={tool.name}         subtitle={tool.subtitle}         backHref={`/departments/${rack.slug}`}         backLabel={rack.name}       />
+      <ToolHeader
+        title={tool.name}
+        subtitle={tool.subtitle}
+        backHref={`/departments/${rack.slug}`}
+        backLabel={rack.name}
+        code={rack.code}
+        accent={rack.slug === "catering" ? "chit" : "site"}
+      />
       <div className="px-6 -mt-4 pb-14">
         <ToolRunner tool={tool}>
           <MenuPriceCalculator />

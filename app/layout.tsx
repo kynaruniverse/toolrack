@@ -1,18 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Oswald, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Big_Shoulders_Stencil, Archivo, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const oswald = Oswald({
+const displayFont = Big_Shoulders_Stencil({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-oswald",
+  weight: ["600", "700", "800"],
+  variable: "--font-display",
 });
 
-const inter = Inter({
+const bodyFont = Archivo({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -54,7 +55,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1C1F22",
+  themeColor: "#1B1B1A",
 };
 
 export default function RootLayout({
@@ -63,8 +64,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${oswald.variable} ${inter.variable} ${plexMono.variable}`}>
-      <body className="bg-concrete text-graphite antialiased font-body">
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${plexMono.variable}`}>
+      <body className="bg-kraft-dark text-ink antialiased font-body">
         {children}
         <Analytics />
       </body>

@@ -69,7 +69,7 @@ export default function ConcreteCalculator({
   const lengthUnit = unit === "metric" ? "m" : "ft";
 
   return (
-    <div className="w-full max-w-md mx-auto rounded-xl bg-white border border-concrete-dark shadow-sm p-5">
+    <div className="w-full max-w-md mx-auto ticket-edge relative bg-kraft border border-kraft-line rounded-sm p-5 pt-7">
       {/* Rocker unit toggle */}
       <div className="rocker flex mb-4 rounded-lg p-1" role="radiogroup" aria-label="Unit system">
         {(["metric", "imperial"] as Unit[]).map((u) => (
@@ -82,7 +82,7 @@ export default function ConcreteCalculator({
             role="radio"
             aria-checked={unit === u}
             className={`tactile flex-1 py-2 rounded-md text-sm font-semibold uppercase tracking-wide transition ${
-              unit === u ? "bg-graphite text-white shadow" : "text-neutral-600"
+              unit === u ? "bg-ink text-kraft shadow" : "text-neutral-600"
             }`}
           >
             {u === "metric" ? "Metric (m)" : "Imperial (ft)"}
@@ -102,7 +102,7 @@ export default function ConcreteCalculator({
             role="radio"
             aria-checked={method === m}
             className={`tactile flex-1 py-2 rounded-md text-xs font-semibold uppercase tracking-wide transition ${
-              method === m ? "bg-graphite text-white shadow" : "text-neutral-600"
+              method === m ? "bg-ink text-kraft shadow" : "text-neutral-600"
             }`}
           >
             {m === "premix" ? "Pre-mix bags" : "Mix my own"}
@@ -117,8 +117,8 @@ export default function ConcreteCalculator({
         <Field id="concrete-depth" label="Depth (mm)" value={depth} onChange={setDepth} />
 
         <div>
-          <label htmlFor="concrete-waste" className="block text-sm font-semibold text-graphite mb-1">
-            Waste allowance: <span className="text-steel">{wastePercent}%</span>
+          <label htmlFor="concrete-waste" className="block text-sm font-semibold text-ink mb-1">
+            Waste allowance: <span className="text-ink">{wastePercent}%</span>
           </label>
           <input
             id="concrete-waste"
@@ -135,7 +135,7 @@ export default function ConcreteCalculator({
         {method === "premix" ? (
           <>
             <div>
-              <label id="concrete-bag-size-label" className="block text-sm font-semibold text-graphite mb-1">
+              <label id="concrete-bag-size-label" className="block text-sm font-semibold text-ink mb-1">
                 Bag size
               </label>
               <div className="flex gap-2" role="radiogroup" aria-labelledby="concrete-bag-size-label">
@@ -150,8 +150,8 @@ export default function ConcreteCalculator({
                     aria-checked={bagSizeKg === size}
                     className={`tactile flex-1 py-2 rounded-lg border-2 text-sm font-semibold transition ${
                       bagSizeKg === size
-                        ? "border-safety-dark bg-safety text-graphite"
-                        : "border-concrete-dark text-neutral-600"
+                        ? "border-safety-dark bg-safety text-ink"
+                        : "border-kraft-line text-neutral-600"
                     }`}
                   >
                     {size}kg
@@ -168,7 +168,7 @@ export default function ConcreteCalculator({
           </>
         ) : (
           <div>
-            <label id="concrete-mix-ratio-label" className="block text-sm font-semibold text-graphite mb-1">
+            <label id="concrete-mix-ratio-label" className="block text-sm font-semibold text-ink mb-1">
               Mix ratio
             </label>
             <div className="space-y-2" role="radiogroup" aria-labelledby="concrete-mix-ratio-label">
@@ -183,8 +183,8 @@ export default function ConcreteCalculator({
                   aria-checked={mixIndex === i}
                   className={`tactile w-full text-left py-2 px-3 rounded-lg border-2 text-sm font-medium transition ${
                     mixIndex === i
-                      ? "border-safety-dark bg-safety text-graphite"
-                      : "border-concrete-dark text-neutral-600"
+                      ? "border-safety-dark bg-safety text-ink"
+                      : "border-kraft-line text-neutral-600"
                   }`}
                 >
                   {preset.label}
@@ -197,64 +197,64 @@ export default function ConcreteCalculator({
 
       {/* Digital readout */}
       {result && (
-        <div className="readout-panel mt-6 rounded-lg p-5">
-          <p className="text-[11px] uppercase tracking-widest text-neutral-400 mb-1">
+        <div className="carbon-slip mt-6 rounded-lg p-5">
+          <p className="text-[11px] uppercase tracking-widest text-ink/50 mb-1">
             You&apos;ll need approximately
           </p>
-          <p className="readout-digits text-3xl font-semibold mb-3">
+          <p className="carbon-digits text-3xl font-semibold mb-3">
             {result.volumeWithWasteM3.toFixed(2)} m³
           </p>
-          <p className="text-sm text-neutral-300 leading-relaxed">
+          <p className="text-sm text-ink/70 leading-relaxed">
             That&apos;s roughly{" "}
-            <span className="readout-digits font-semibold">
+            <span className="carbon-digits font-semibold">
               {result.bucketsOf13L} buckets
             </span>{" "}
             or{" "}
-            <span className="readout-digits font-semibold">
+            <span className="carbon-digits font-semibold">
               {result.wheelbarrowsOf65L} wheelbarrow loads
             </span>{" "}
             — handy for quick on-site estimation.
           </p>
 
           {result.bagsRequired !== null && (
-            <p className="text-sm text-neutral-300 mt-3 pt-3 border-t border-gunmetal">
-              <span className="readout-digits font-semibold">
+            <p className="text-sm text-ink/70 mt-3 pt-3 border-t border-carbon-ink/15">
+              <span className="carbon-digits font-semibold">
                 {result.bagsRequired} bags
               </span>{" "}
               ({bagSizeKg}kg each), including a {wastePercent}% allowance.
             </p>
           )}
           {result.estimatedCost !== null && (
-            <p className="text-sm text-neutral-300 mt-2">
+            <p className="text-sm text-ink/70 mt-2">
               Estimated material cost:{" "}
-              <span className="readout-digits font-semibold">
+              <span className="carbon-digits font-semibold">
                 £{result.estimatedCost.toFixed(2)}
               </span>
             </p>
           )}
 
           {result.mix && (
-            <div className="text-sm text-neutral-300 mt-3 pt-3 border-t border-gunmetal space-y-1">
-              <p className="text-[11px] uppercase tracking-widest text-neutral-400 mb-1">
+            <div className="text-sm text-ink/70 mt-3 pt-3 border-t border-carbon-ink/15 space-y-1">
+              <p className="text-[11px] uppercase tracking-widest text-ink/50 mb-1">
                 Mix breakdown
               </p>
               <p>
                 Cement:{" "}
-                <span className="readout-digits font-semibold">
+                <span className="carbon-digits font-semibold">
                   {result.mix.cementBags} bags
                 </span>{" "}
                 (25kg)
               </p>
               <p>
                 Sand:{" "}
-                <span className="readout-digits font-semibold">
+                <span className="carbon-digits font-semibold">
                   {result.mix.sandM3} m³
                 </span>
               </p>
               {result.mix.aggregateM3 > 0 && (
                 <p>
                   Aggregate:{" "}
-                  <span className="readout-digits font-semibold">
+                  <span className="carbon-digits font-semibold">
                     {result.mix.aggregateM3} m³
                   </span>
                 </p>
@@ -281,7 +281,7 @@ export default function ConcreteCalculator({
                   result,
                 });
               }}
-              className="tactile mt-4 w-full rounded-lg bg-safety text-graphite font-semibold text-sm py-2 uppercase tracking-wide"
+              className="tactile mt-4 w-full rounded-lg bg-safety text-ink font-semibold text-sm py-2 uppercase tracking-wide"
             >
               Save to project
             </button>
@@ -305,7 +305,7 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-semibold text-graphite mb-1">{label}</label>
+      <label htmlFor={id} className="block text-sm font-semibold text-ink mb-1">{label}</label>
       <input
         id={id}
         type="number"
@@ -314,7 +314,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="0"
-        className="w-full rounded-lg border-2 border-concrete-dark px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
+        className="w-full rounded-lg border-2 border-kraft-line px-3 py-2 text-base focus:outline-none focus:border-safety focus:ring-2 focus:ring-safety/25"
       />
     </div>
   );
